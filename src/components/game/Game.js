@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Actions from "./Actions";
-import CommonCards from "./CommonCards";
+import Table from "./Table";
 
 class Game extends Component {
 
@@ -10,7 +10,7 @@ class Game extends Component {
                 <div>Manche [type]</div>
                 <div>Pot : xxx€</div>
 
-                <CommonCards />
+                <Table />
 
                 <Actions />
             </div>
