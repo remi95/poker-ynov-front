@@ -1,15 +1,17 @@
-import { GET_AUTH_USER } from "../constants";
+import {AUTH_SUCCESS} from "../constants";
 
 let initialState = {
-    user: ''
+    user: {},
+    token: null
 };
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_AUTH_USER:
+        case AUTH_SUCCESS:
             return {
                 ...state,
-                user: action.user
+                user: action.response.user,
+                token: action.response.token,
             };
         default:
             return state;

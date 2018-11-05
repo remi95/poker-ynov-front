@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getUser } from "../../actions/authAction";
+import { login } from "../../actions/authAction";
 
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+
+        this.state = {
+            email: null,
+            password: null,
+        };
     }
 
-    handleChange(e) {
-        this.props.getUser(e.target.value);
-    }
+    inputChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    };
 
-    handleSubmit(e) {
+    submit = (e) => {
         e.preventDefault();
-        console.log(this.props.userReducer.user);
-    }
+        if (this.state.email && this.state.password) {
+            this.props.login(this.state)
+        }
+        else {
+        // TODO: throw alert message.
+        }
+    };
 
     render() {
         return (
-            <form onSubmit={ this.handleSubmit }>
-                <input type="text" name="username" onChange={ this.handleChange }/>
+            <form onSubmit={ this.submit }>
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" onChange={ this.inputChange } />
+
+                <label htmlFor="password">Mot de passe</label>
+                <input type="password" name="password" onChange={ this.inputChange } />
+
+                <input type="submit" value={'Se connecter'} />
             </form>
         )
     }
@@ -35,7 +49,7 @@ const mapStateToProps = ({ userReducer }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUser: (user) => dispatch(getUser(user))
+        login: (user) => dispatch(login(user))
     }
 };
 
