@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import connect from "react-redux/es/connect/connect";
-import {pushAlert} from "../../actions/alertAction";
 
 class Alert extends Component {
 
@@ -23,10 +22,4 @@ const mapStateToProps = ({ alertReducer }) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        pushAlert: (alert) => dispatch(pushAlert(alert))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Alert);
+export default connect(mapStateToProps, null)(Alert);

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { login } from "../../actions/authAction";
+import {checkUser} from "../../actions/authAction";
+import {pushAlert} from "../../actions/alertAction";
+import {alert} from "../../helpers/global";
 
 class Login extends Component {
     constructor(props) {
@@ -22,7 +24,7 @@ class Login extends Component {
             this.props.login(this.state)
         }
         else {
-        // TODO: throw alert message.
+            this.props.alert(alert('error', 'Veuillez remplir tous les champs'))
         }
     };
 
@@ -49,7 +51,8 @@ const mapStateToProps = ({ userReducer }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (user) => dispatch(login(user))
+        login: (user) => dispatch(checkUser(user)),
+        alert: (alert) => dispatch(pushAlert(alert))
     }
 };
 

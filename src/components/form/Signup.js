@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { registerUser } from "../../actions/registrationAction";
+import {postUser} from "../../actions/authAction";
+import {alert} from "../../helpers/global";
+import {pushAlert} from "../../actions/alertAction";
 
 class Signup extends Component {
     constructor(props) {
@@ -35,28 +37,16 @@ class Signup extends Component {
         e.preventDefault();
         const { user } = this.state;
         if (user.email && user.username && user.birthdate && user.password && user.confirmPassword) {
-            this.props.registerUser(user);
+            this.props.register(user);
         }
         else {
-            this.setState({
-                ...this.state,
-                error: true
-            })
+            this.props.alert(alert('error', 'Veuillez remplir tous les champs'))
         }
     }
 
     render() {
-
-        const { error, isLoged, isLoading } = this.props.registrationReducer;
-
         return (
             <div>
-                { this.state.error ? <span>Tous les champs doivent être remplis</span> : null }
-
-                { error ? <span>{ error }</span> : null }
-
-                { isLoged ? <span>Inscription réussi</span> : null }
-
                 <form onSubmit={ this.handleSubmit }>
                     <input type="email" name="email" placeholder="email" onChange={ this.handleChange } />
                     <input type="text" name="username" placeholder="Nom d'utilisateur" onChange={ this.handleChange } />
@@ -66,21 +56,22 @@ class Signup extends Component {
                     <button type="submit">Envoyer</button>
                 </form>
 
-                { isLoading ? <span>Loading</span> : null }
+                { this.props.userReducer.loading ? <span>Loading</span> : null }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ registrationReducer }) => {
+const mapStateToProps = ({ userReducer }) => {
     return {
-        registrationReducer
+        userReducer
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        registerUser: (user) => dispatch(registerUser(user))
+        register: (user) => dispatch(postUser(user)),
+        alert: (alert) => dispatch(pushAlert(alert))
     }
 };
 

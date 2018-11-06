@@ -1,8 +1,9 @@
-import {AUTH_SUCCESS} from "../constants";
+import {AUTH_LOADING, AUTH_SUCCESS} from "../constants";
 
 let initialState = {
     user: {},
-    token: null
+    token: null,
+    loading: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -12,6 +13,12 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 user: action.response.user,
                 token: action.response.token,
+                loading: false,
+            };
+        case AUTH_LOADING:
+            return {
+                ...state,
+                loading: true,
             };
         default:
             return state;
