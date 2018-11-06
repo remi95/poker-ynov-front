@@ -2,6 +2,7 @@ import {AUTH_ERROR, AUTH_SUCCESS} from "../constants";
 import {pushAlert} from "./alertAction";
 import {alert} from "../helpers/global";
 import history from "../helpers/history";
+import {apiUrl} from "../config";
 
 export const success = (response) => {
     return {
@@ -20,7 +21,7 @@ export const fail = (errors) => {
 export const login = (userInfo) => {
     return async (dispatch) => {
         try {
-            const response = await fetch('http://localhost:1337/login', {
+            const response = await fetch(apiUrl + '/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -34,6 +35,7 @@ export const login = (userInfo) => {
             }
 
             const json = await response.json();
+            sessionStorage.setItem('appToken', json.token);
 
             dispatch(success(json));
             dispatch(pushAlert(alert('success', 'Bonjour ' + json.user.username)));

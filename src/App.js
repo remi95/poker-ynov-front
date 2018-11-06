@@ -5,6 +5,7 @@ import Auth from "./components/authentication/Auth";
 import Menu from "./components/home/Menu";
 import Game from "./components/game/Game";
 import Alert from "./components/general/Alert";
+import PrivateRoute from "./components/PrivateRoute";
 
 class App extends Component {
     render() {
@@ -13,7 +14,7 @@ class App extends Component {
                 <Alert />
                 <Route path="/(login|signup)" component={ Auth } />
                 <Route path="/(|profile)" component={ Menu } />
-                <Route path="/game" component={ Game } />
+                <PrivateRoute path="/game" component={ Game } />
             </div>
         );
     }
