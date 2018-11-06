@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
+import connect from "react-redux/es/connect/connect";
+import {pushAlert} from "../../actions/alertAction";
 
-export const Alert = (props) => {
+class Alert extends Component {
 
-        return (
-            <div className={ 'alert' }>
-                { props.message }
-            </div>
-        )
+    render() {
+        let alert = this.props.alertReducer;
+
+        return alert != null ?
+            (
+                <div className={ alert.type }>
+                    { alert.message }
+                </div>
+            )
+            : null
+    }
+}
+
+const mapStateToProps = ({ alertReducer }) => {
+    return {
+        alertReducer
+    }
 };
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        pushAlert: (alert) => dispatch(pushAlert(alert))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alert);

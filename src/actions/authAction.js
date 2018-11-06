@@ -1,6 +1,9 @@
 import {AUTH_ERROR, AUTH_SUCCESS} from "../constants";
+import {pushAlert} from "./alertAction";
+import {alert} from "../helpers/global";
+import history from "../helpers/history";
 
-export const succes = (response) => {
+export const success = (response) => {
     return {
         type: AUTH_SUCCESS,
         response
@@ -25,12 +28,19 @@ export const login = (userInfo) => {
                 },
                 body: JSON.stringify(userInfo)
             });
+
+            if (!response.ok) {
+                throw response;
+            }
+
             const json = await response.json();
 
-            dispatch(succes(json))
+            dispatch(success(json));
+            dispatch(pushAlert(alert('success', 'Bonjour ' + json.user.username)));
+            history.push('/')
         }
         catch (e) {
-            dispatch(fail(e))
+            dispatch(pushAlert(alert('error', 'Mauvais identifiants')));
         }
     }
 };
