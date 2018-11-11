@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import './App.css';
 import Auth from "./components/authentication/Auth";
 import Menu from "./components/home/Menu";
 import Game from "./components/game/Game";
 import Alert from "./components/general/Alert";
 import PrivateRoute from "./components/PrivateRoute";
+import {authenticate} from "./helpers/authentication";
+import store from "./store";
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+
+        authenticate(props.location);
+    }
+
     render() {
         return (
             <div>
+                {/* TODO: remove it, just an indicator for now */}
+                {store.getState().userReducer.token ? 'CONNECTED' : ''}
                 <Alert />
                 <Route path="/(login|signup)" component={ Auth } />
-                <Route path="/(|profile)" component={ Menu } />
+                <PrivateRoute path="/(|profile)" component={ Menu } />
                 <PrivateRoute path="/game" component={ Game } />
             </div>
         );
     }
 }
 
-export default App;
+export default withRouter(App);

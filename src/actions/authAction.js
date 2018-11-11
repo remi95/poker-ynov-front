@@ -2,7 +2,8 @@ import {AUTH_LOADING, AUTH_SUCCESS} from "../constants";
 import {pushAlert} from "./alertAction";
 import {alert} from "../helpers/global";
 import history from "../helpers/history";
-import {API_URL} from "../config";
+import Cookies from 'js-cookie';
+import client from "../clients/apiClient";
 
 const success = (response) => {
     return {
@@ -19,46 +20,41 @@ const loading = (bool) => {
 };
 
 export const checkUser = (user) => {
-    return userRequest(user, 'login')
+    return userPostRequest(user, 'login')
 };
 
 export const postUser = (user) => {
-    return userRequest(user, 'signup')
+    return userPostRequest(user, 'signup')
 };
 
-const userRequest = (user, endpoint) => {
+export const checkToken = (token, redirect) => {
+    return userPostRequest({token}, 'user/token', redirect)
+};
+
+const userPostRequest = (user, endpoint, redirect = '/') => {
     return async (dispatch) => {
-        try {
-            dispatch(loading(true));
-            const response = await fetch(`${API_URL}/${endpoint}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user),
-            });
+        dispatch(loading(true));
 
-            const json = await response.json();
+        const request = await client.post(endpoint, user);
 
-            if (!response.ok) {
-                throw json;
-            }
-
-            dispatch(login(json))
+        if (request.status) {
+            dispatch(login(request.data, redirect));
         }
-        catch (e) {
-            dispatch(pushAlert(alert('error', e.message)));
+        else {
+            dispatch(pushAlert(alert('error', request.data.message)));
         }
     }
 };
 
-const login = (userInfo) => {
+export const login = (userInfo, redirect) => {
     return async (dispatch) => {
-        sessionStorage.setItem('appToken', userInfo.token);
+        Cookies.set('user-token', userInfo.token);
 
         dispatch(success(userInfo));
         dispatch(pushAlert(alert('success', 'Bonjour ' + userInfo.user.username)));
-        history.push('/')
+
+        if (redirect) {
+            history.push(redirect)
+        }
     }
 };
