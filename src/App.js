@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom'
-import './App.css';
 import Auth from "./components/authentication/Auth";
 import Menu from "./components/home/Menu";
 import Game from "./components/game/Game";
@@ -8,7 +7,8 @@ import Alert from "./components/general/Alert";
 import PrivateRoute from "./components/PrivateRoute";
 import {authenticate} from "./helpers/authentication";
 import store from "./store";
-import { openModal, closeModal } from "./actions/modalAction";
+import 'milligram';
+import './App.css';
 
 class App extends Component {
 

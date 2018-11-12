@@ -6,11 +6,16 @@ class Auth extends Component {
 
     render () {
         return (
-            <div>
-                <Title />
-                <img src="" alt=""/>
-
-                <AuthForm />
+            <div className="container h-100">
+                <div className="row">
+                    <div className="column h-100 d-flex align-items-center">
+                        <Title />
+                        <img src="" alt=""/>
+                    </div>
+                    <div className="column h-100 d-flex align-items-center">
+                        <AuthForm />
+                    </div>
+                </div>
             </div>
         )
     }
