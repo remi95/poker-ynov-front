@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
-import Profile from "./Profile";
+import { Link } from 'react-router-dom';
 import {Title} from "../general/Title";
+import Stats from "./Stats";
+import Modal from "react-responsive-modal";
+import {closeModal, openModal} from "../../actions/modalAction";
+import { connect } from 'react-redux';
 
 class Menu extends Component {
 
@@ -12,12 +15,27 @@ class Menu extends Component {
 
                 <Link to={'/logout'}>Déconnexion</Link>
                 <Link to={'/game'}>Rejoindre une partie</Link>
-                <Link to={'/profile'}>Mon profil</Link>
+                <button onClick={ () => this.props.openModal()}>Mon profil</button>
 
-                <Route path={'/profile'} component={ Profile } />
+                <Modal open={ this.props.modalReducer.isOpen } onClose={ () => this.props.closeModal() } center>
+                    <Stats />
+                </Modal>
             </div>
         )
     }
 }
 
-export default Menu;
+const mapStateToProps = ({ modalReducer }) => {
+    return {
+        modalReducer
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        openModal: () => dispatch(openModal()),
+        closeModal: () => dispatch(closeModal())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

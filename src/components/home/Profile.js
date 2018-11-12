@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Stats from "./Stats";
+import StatModal from "./StatModal";
 import UserInfo from "./UserInfo";
 
 class Profile extends Component {
@@ -8,7 +8,7 @@ class Profile extends Component {
         return (
             <div>
                 <UserInfo />
-                <Stats />
+                <StatModal />
             </div>
         )
     }
