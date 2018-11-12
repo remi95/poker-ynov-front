@@ -48,7 +48,7 @@ const userPostRequest = (user, endpoint, redirect = '/') => {
 
 export const login = (userInfo, redirect) => {
     return async (dispatch) => {
-        Cookies.set('user-token', userInfo.token);
+        Cookies.set('user-token', userInfo.token, { expires: 7 });
 
         dispatch(success(userInfo));
         dispatch(pushAlert(alert('success', 'Bonjour ' + userInfo.user.username)));

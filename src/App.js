@@ -8,6 +8,7 @@ import Alert from "./components/general/Alert";
 import PrivateRoute from "./components/PrivateRoute";
 import {authenticate} from "./helpers/authentication";
 import store from "./store";
+import PublicRoute from "./components/PublicRoute";
 
 class App extends Component {
 
@@ -23,7 +24,7 @@ class App extends Component {
                 {/* TODO: remove it, just an indicator for now */}
                 {store.getState().userReducer.token ? 'CONNECTED' : ''}
                 <Alert />
-                <Route path="/(login|signup)" component={ Auth } />
+                <PublicRoute path="/(login|signup)" component={ Auth } />
                 <PrivateRoute path="/(|profile)" component={ Menu } />
                 <PrivateRoute path="/game" component={ Game } />
             </div>
