@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import './App.css';
 import Auth from "./components/authentication/Auth";
 import Menu from "./components/home/Menu";
@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import {authenticate} from "./helpers/authentication";
 import store from "./store";
 import PublicRoute from "./components/PublicRoute";
+import ResetPassword from "./components/form/ResetPassword";
 
 class App extends Component {
 
@@ -25,6 +26,7 @@ class App extends Component {
                 {store.getState().userReducer.token ? 'CONNECTED' : ''}
                 <Alert />
                 <PublicRoute path="/(login|signup)" component={ Auth } />
+                <PublicRoute path="/password-reset/:token" component={ ResetPassword } />
                 <PrivateRoute path="/(|profile)" component={ Menu } />
                 <PrivateRoute path="/game" component={ Game } />
             </div>

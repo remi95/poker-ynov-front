@@ -4,7 +4,7 @@ class apiClient {
 
     async post(endpoint, data) {
         try {
-            const response = await fetch(`${API_URL}/${endpoint}`, {
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

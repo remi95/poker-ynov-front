@@ -1,4 +1,4 @@
-import {AUTH_LOADING, AUTH_SUCCESS} from "../constants";
+import {AUTH_LOADING, AUTH_SUCCESS, LOGOUT} from "../constants";
 
 let initialState = {
     user: {},
@@ -18,7 +18,13 @@ const userReducer = (state = initialState, action) => {
         case AUTH_LOADING:
             return {
                 ...state,
-                loading: true,
+                loading: action.bool,
+            };
+        case LOGOUT:
+            return {
+                user: {},
+                token: null,
+                loading: false,
             };
         default:
             return state;

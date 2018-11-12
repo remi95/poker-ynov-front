@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
 import Profile from "./Profile";
 import {Title} from "../general/Title";
+import {logoutAndRedirect} from "../../actions/authAction";
+import connect from "react-redux/es/connect/connect";
 
 class Menu extends Component {
 
@@ -10,7 +12,8 @@ class Menu extends Component {
             <div>
                 <Title />
 
-                <Link to={'/logout'}>Déconnexion</Link>
+                <button onClick={this.props.logout}>Déconnexion</button>
+
                 <Link to={'/game'}>Rejoindre une partie</Link>
                 <Link to={'/profile'}>Mon profil</Link>
 
@@ -20,4 +23,10 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: (alert) => dispatch(logoutAndRedirect(alert))
+    }
+};
+
+export default connect(null, mapDispatchToProps)(Menu);
