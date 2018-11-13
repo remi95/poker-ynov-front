@@ -5,8 +5,10 @@
   "dependencies": {
     "history": "^4.7.2",
     "js-cookie": "^2.2.0",
+    "pusher-js": "^4.3.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-pusher": "^0.2.0",
     "react-redux": "^5.1.0",
     "react-responsive-modal": "^3.5.0",
     "react-router-dom": "^4.3.1",

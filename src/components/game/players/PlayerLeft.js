@@ -4,7 +4,7 @@ export const PlayerLeft = (props) => {
 
     return (
         <div className={'player-left'}>
-            player-left
+            {props.user.username}
         </div>
     )
 };

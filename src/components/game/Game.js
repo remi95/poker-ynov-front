@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Actions from "./Actions";
 import Table from "./Table";
+import Pusher from 'react-pusher';
 
 class Game extends Component {
 
@@ -13,6 +14,12 @@ class Game extends Component {
                 <Table />
 
                 <Actions />
+
+                {/*<Pusher*/}
+                    {/*channel="game"*/}
+                    {/*event="listChanged"*/}
+                    {/*onUpdate={console.log('changed')}*/}
+                {/*/>*/}
             </div>
         )
     }

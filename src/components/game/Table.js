@@ -4,49 +4,57 @@ import {PlayerTop} from "./players/PlayerTop";
 import {PlayerLeft} from "./players/PlayerLeft";
 import {PlayerRight} from "./players/PlayerRight";
 import {PlayerBottom} from "./players/PlayerBottom";
+import {sortPlayers} from "../../helpers/game";
+import {checkUser} from "../../actions/authAction";
+import {pushAlert} from "../../actions/alertAction";
+import connect from "react-redux/es/connect/connect";
 
 class Table extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        this.state = {
-            playersTop: [{id:1}, {id:2}],
-            playersLeft: [{id:3}],
-            playersRight: [{id:4}],
-            playersBottom: [{id:5}, {id:6}],
-        }
+        this.state = sortPlayers(props.gameReducer.players)
     }
 
     render() {
+        console.log(this.state.players)
         return (
             <div id="table">
                 <div id="table-top">
                     {
-                        this.state.playersTop.map(user =>
-                            <PlayerTop key={user.id} user={user} />
+                        this.state.top.map(user =>
+                            user !== null
+                                ? <PlayerTop key={user.id} user={user} />
+                                : null
                         )
                     }
                 </div>
                 <div id="table-center">
                     {
-                        this.state.playersLeft.map(user =>
-                            <PlayerLeft key={user.id} user={user} />
+                        this.state.left.map(user =>
+                            user !== null
+                                ? <PlayerLeft key={user.id} user={user} />
+                                : null
                         )
                     }
 
                     <CommonCards />
 
                     {
-                        this.state.playersRight.map(user =>
-                            <PlayerRight key={user.id} user={user} />
+                        this.state.right.map(user =>
+                            user !== null
+                                ? <PlayerRight key={user.id} user={user} />
+                                : null
                         )
                     }
                 </div>
                 <div id="table-bottom">
                     {
-                        this.state.playersBottom.map(user =>
-                            <PlayerBottom key={user.id} user={user} />
+                        this.state.bottom.map(user =>
+                            user !== null
+                                ? <PlayerBottom key={user.id} user={user} />
+                                : null
                         )
                     }
                 </div>
@@ -55,4 +63,17 @@ class Table extends Component {
     }
 }
 
-export default Table;
+const mapStateToProps = ({ gameReducer }) => {
+    return {
+        gameReducer
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (user) => dispatch(checkUser(user)),
+        alert: (alert) => dispatch(pushAlert(alert))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

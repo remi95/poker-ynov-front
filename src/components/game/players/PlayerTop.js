@@ -4,7 +4,7 @@ export const PlayerTop = (props) => {
 
     return (
         <div className={'player-top'}>
-            player-top
+            {props.user.username}
         </div>
     )
 };
