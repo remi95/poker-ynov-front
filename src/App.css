@@ -22,6 +22,7 @@
 }
 .button, button, input[type='button'], input[type='reset'], input[type='submit'] {
   background: #ba000d;
+  border: 0.1rem solid #ba000d;
   transition: all .2s ease-in-out;
 }
 .button:focus, .button:hover, button:focus, button:hover, input[type='button']:focus, input[type='button']:hover, input[type='reset']:focus, input[type='reset']:hover, input[type='submit']:focus, input[type='submit']:hover {
