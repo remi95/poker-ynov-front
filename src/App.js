@@ -10,7 +10,8 @@ import store from "./store";
 import PublicRoute from "./components/PublicRoute";
 import ResetPassword from "./components/form/ResetPassword";
 import 'milligram';
-import './App.css';
+// import './App.css';
+import './styles/app.scss';
 
 class App extends Component {
 

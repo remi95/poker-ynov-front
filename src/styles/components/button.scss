@@ -1,0 +1,21 @@
+.button.button-outline, button.button-outline, input[type='button'].button-outline, input[type='reset'].button-outline, input[type='submit'].button-outline {
+  border: 0.1rem solid $primary-dark;
+  color: $primary-dark;
+  transition: all .2s ease-in-out;
+}
+.button.button-outline:focus, .button.button-outline:hover, button.button-outline:focus, button.button-outline:hover, input[type='button'].button-outline:focus, input[type='button'].button-outline:hover, input[type='reset'].button-outline:focus, input[type='reset'].button-outline:hover, input[type='submit'].button-outline:focus, input[type='submit'].button-outline:hover {
+  background-color: transparent;
+  border-color: black;
+  color: black;
+}
+.button, button, input[type='button'], input[type='reset'], input[type='submit'] {
+  background: $primary-dark;
+  border: 0.1rem solid $primary-dark;
+  transition: all .2s ease-in-out;
+}
+.button:focus, .button:hover, button:focus, button:hover, input[type='button']:focus, input[type='button']:hover, input[type='reset']:focus, input[type='reset']:hover, input[type='submit']:focus, input[type='submit']:hover {
+  background-color: #ee4040;
+  border-color: #ee4040;
+  color: #fff;
+  outline: 0;
+}
