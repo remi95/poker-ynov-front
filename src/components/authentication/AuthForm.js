@@ -8,9 +8,10 @@ class AuthForm extends Component {
     render() {
         return (
             <div className="container">
-                <NavLink to={'/login'} className="button button-outline">Connexion</NavLink>
-                <NavLink to={'/signup'} className="button button-outline">Inscription</NavLink>
-
+                <div className="login-btn-container">
+                    <NavLink to={'/login'} className="button button-outline btn-login">Connexion</NavLink>
+                    <NavLink to={'/signup'} className="button button-outline btn-signup">Inscription</NavLink>
+                </div>
                 <Route path={'/signup'}
                        component={ Signup } />
 

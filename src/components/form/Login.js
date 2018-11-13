@@ -51,10 +51,11 @@ class Login extends Component {
                     <label htmlFor="password">Mot de passe</label>
                     <input type="password" name="password" onChange={ this.inputChange } />
 
+                    <div className="forgot-pswd-container">
+                        <span className="button button-clear" onClick={this.toggleModal}>Mot de passe oublié ?</span>
+                    </div>
                     <input type="submit" value={'Se connecter'} />
                 </form>
-
-                <button onClick={this.toggleModal}>Mot de passe oublié</button>
 
                 <ForgetPassword open={this.state.openModal}
                                 closeModal={this.toggleModal}

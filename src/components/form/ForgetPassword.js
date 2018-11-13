@@ -39,12 +39,14 @@ class ForgetPassword extends Component {
     render() {
         return(
             <Modal open={this.props.open} onClose={this.props.closeModal}>
-                <form onSubmit={this.submit}>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" onChange={this.inputChange}/>
+                <div className="container modal-content-container">
+                    <form onSubmit={this.submit}>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" onChange={this.inputChange}/>
 
-                    <input type="submit" value="Valider" />
-                </form>
+                        <input type="submit" value="Valider" />
+                    </form>
+                </div>
             </Modal>
         )
     }
