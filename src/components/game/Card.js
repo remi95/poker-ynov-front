@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {getCardSymbol} from "../../helpers/game";
 
-class Card extends Component {
+export const Card = (props) => {
 
-    render() {
-        return (
-            <div>
-                Card
-            </div>
-        )
-    }
-}
-
-export default Card;
+    return (
+        <div>
+            {props.card.value}
+            <img src={getCardSymbol(props.card.color)} alt=""/>
+            {props.card.value}
+        </div>
+    )
+};

@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
-import Card from "./Card";
+import React from 'react';
+import {Card} from "./Card";
 
-class CommonCards extends Component {
+export const CommonCards = (props) => {
 
-    render() {
-        return (
-            <div>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-            </div>
-        )
-    }
-}
-
-export default CommonCards;
+    return (
+        <div>
+            {
+                props.cards.map(card =>
+                    card.value !== null && card.color !== null
+                        ? <Card key={card.value + card.color} card={card} />
+                        : null
+                )
+            }
+        </div>
+    )
+};

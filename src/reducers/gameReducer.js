@@ -1,74 +1,39 @@
+import {GAME_ACTION, GAME_INIT, GAME_ROUND, GAME_STEP} from "../constants";
 
 let initialState = {
     round: 0,
-    pot: null,
-    players: [
-        {
-            id: 1,
-            username: 'louis',
-            money: 5000,
-            bet: 150,
-            order: 1,
-            role: 'SMALL_BLIND',
-        },
-        {
-            id: 2,
-            username: 'arnaud',
-            money: 5000,
-            bet: 350,
-            order: 2,
-            role: null,
-        },
-        {
-            id: 5,
-            username: 'remi',
-            money: 5000,
-            bet: 200,
-            order: 3,
-            role: null,
-        },
-        {
-            id: 4,
-            username: 'guillaume',
-            money: 5000,
-            bet: 100,
-            order: 4,
-            role: null,
-        }
-    ],
-    cards: [
-        {
-            value: 10,
-            color: 'SPIKE',
-        },
-        {
-            value: null,
-            color: null,
-        },
-        {
-            value: null,
-            color: null,
-        },
-        {
-            value: null,
-            color: null,
-        },
-    ],
-    hand: [
-        {
-            value: 10,
-            color: 'SPIKE',
-        },
-        {
-            value: null,
-            color: null,
-        },
-    ]
+    pot: 0,
+    bigBlind: 100,
+    players: [],
+    cards: [],
+    hand: []
 };
 
 const gameReducer = (state = initialState, action) => {
     switch (action.type) {
-
+        case GAME_INIT:
+            return action.data;
+        case GAME_ACTION:
+            return {
+                ...state,
+                pot: action.data.pot,
+                players: action.data.players,
+            };
+        case GAME_STEP:
+            return {
+                ...state,
+                cards: state.cards.concat(action.data.cards),
+                players: action.data.players,
+            };
+        case GAME_ROUND:
+            return {
+                ...state,
+                round: action.data.round,
+                hand: action.data.hand,
+                pot: 0,
+                cards: [],
+                players: action.data.players,
+            };
         default:
             return state;
     }
