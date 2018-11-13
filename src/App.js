@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import './App.css';
-import { withRouter } from 'react-router-dom'
 import Auth from "./components/authentication/Auth";
 import Menu from "./components/home/Menu";
 import Game from "./components/game/Game";
