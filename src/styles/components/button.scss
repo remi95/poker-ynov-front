@@ -5,8 +5,8 @@
 }
 .button.button-outline:focus, .button.button-outline:hover, button.button-outline:focus, button.button-outline:hover, input[type='button'].button-outline:focus, input[type='button'].button-outline:hover, input[type='reset'].button-outline:focus, input[type='reset'].button-outline:hover, input[type='submit'].button-outline:focus, input[type='submit'].button-outline:hover {
   background-color: transparent;
-  border-color: black;
-  color: black;
+  border-color: $c-primary;
+  color: $c-primary;
 }
 .button, button, input[type='button'], input[type='reset'], input[type='submit'] {
   background: $c-primary-dark;
@@ -27,8 +27,14 @@
 }
 
 .forgot-pswd-container {
-  button {
+  span.button {
     padding: 0;
     margin: 0;
   }
+}
+.btn-login {
+  margin-right: 1rem;
+}
+.login-btn-container {
+  padding: 1rem 0;
 }

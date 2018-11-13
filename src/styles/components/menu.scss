@@ -1,0 +1,55 @@
+.bg-img-poker {
+  height: 100vh;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .6)), url("../images/poker.jpeg");
+
+  .join-game-container {
+    background: white;
+    margin: 0 auto;
+    padding: 6rem 3rem;
+    border-radius: 1rem;
+    position: relative;
+
+    .left-spade, .right-spade {
+      position: absolute;
+
+      img {
+        height: 3.5rem;
+        width: auto;
+      }
+
+      div.card-value {
+        font-size: 4rem;
+      }
+
+    }
+    .left-spade {
+      top: 0;
+      left: 1rem;
+    }
+    .right-spade {
+      right: 1rem;
+      bottom: 0;
+      transform: rotate(180deg);
+    }
+
+    .join-game-button-container {
+      margin-top: 2rem;
+
+      .btn-join-game {
+        height: 6rem;
+        line-height: 6rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-profile {
+        width: 100%;
+      }
+
+    }
+
+  }
+
+}

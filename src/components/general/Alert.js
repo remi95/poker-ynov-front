@@ -6,7 +6,7 @@ class Alert extends Component {
     render() {
         let alert = this.props.alertReducer;
 
-        return alert != null ?
+        return alert.type != null && alert.message != null ?
             (
                 <div className="alert-container">
                     <div className={'alert alert-' + alert.type }>
