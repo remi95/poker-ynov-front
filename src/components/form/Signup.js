@@ -51,7 +51,7 @@ class Signup extends Component {
                     <label>Email</label>
                     <input type="email" name="email" placeholder="Saisissez votre email" onChange={ this.handleChange } />
                     <label>Nom d'utilisateur</label>
-                    <input type="text" name="username" placeholder="Saisissez un om d'utilisateur" onChange={ this.handleChange } />
+                    <input type="text" name="username" placeholder="Saisissez un nom d'utilisateur" onChange={ this.handleChange } />
                     <label>Date de naissance</label>
                     <input type="date" placeholder="Date de naissance" name="birthdate" onChange={ this.handleChange } />
                     <label>Mot de passe</label>

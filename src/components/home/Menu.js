@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {Title} from "../general/Title";
-import {logoutAndRedirect} from "../../actions/authAction";
 import Stats from "./Stats";
 import Modal from "react-responsive-modal";
 import {closeModal, openModal} from "../../actions/modalAction";
 import { connect } from 'react-redux';
+import logo from "../../logo.png";
 
 class Menu extends Component {
 
     render() {
         return (
-            <div>
-                <Title />
+            <div className="container">
 
-                <button onClick={this.props.logout}>Déconnexion</button>
+                <div className="h-50 d-flex align-items-center justify-center">
+                    <img src={logo} alt="logo poker ynov"/>
+                </div>
 
-                <Link to={'/game'}>Rejoindre une partie</Link>
-                <button onClick={ () => this.props.openModal()}>Mon profil</button>
+                <div className="h-50 d-flex align-items-center justify-start flex-column">
+                    <Link className="button" to={'/game'}>Rejoindre une partie</Link>
 
-                <Modal open={ this.props.modalReducer.isOpen } onClose={ () => this.props.closeModal() } center>
-                    <Stats />
-                </Modal>
+                    <button className="button button-outline" onClick={ () => this.props.openModal() }>Mon profil</button>
+
+                    <Modal open={ this.props.modalReducer.isOpen } onClose={ () => this.props.closeModal() } center>
+                        <Stats />
+                    </Modal>
+                </div>
             </div>
         )
     }
@@ -36,8 +39,7 @@ const mapStateToProps = ({ modalReducer }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         openModal: () => dispatch(openModal()),
-        closeModal: () => dispatch(closeModal()),
-        logout: (alert) => dispatch(logoutAndRedirect(alert))
+        closeModal: () => dispatch(closeModal())
     }
 };
 

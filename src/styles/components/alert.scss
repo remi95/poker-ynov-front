@@ -1,0 +1,23 @@
+.alert-container {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 5rem;
+
+  .alert {
+    width: 75%;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: .4rem;
+  }
+
+  .alert-error {
+    color: $c-primary;
+    border: 1px solid $c-primary;
+  }
+  .alert-success {
+    color: $s-success;
+    border: 1px solid $s-success;
+  }
+}
