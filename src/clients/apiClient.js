@@ -1,10 +1,13 @@
-import {API_URL} from "../config";
+import { API_URL } from "../config";
 
 class apiClient {
+    constructor(url) {
+        this.url = url;
+    }
 
     async post(endpoint, data) {
         try {
-            const response = await fetch(`${API_URL}${endpoint}`, {
+            const response = await fetch(`${this.url}${endpoint}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -25,8 +28,25 @@ class apiClient {
             return { status: false, data: error }
         }
     }
+
+    async get(endpoint) {
+        try {
+            const response = await fetch(`${this.url}/${endpoint}`);
+
+            const json = await response.json();
+
+            if (!response.ok) {
+                throw json;
+            }
+
+            return { status: true, data: json }
+        }
+        catch (error) {
+            return { status: false, data: error }
+        }
+    }
 }
 
-const client = new apiClient();
+const client = new apiClient(API_URL);
 
 export default client;

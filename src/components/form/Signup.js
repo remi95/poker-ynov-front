@@ -48,10 +48,15 @@ class Signup extends Component {
         return (
             <div>
                 <form onSubmit={ this.handleSubmit }>
-                    <input type="email" name="email" placeholder="email" onChange={ this.handleChange } />
-                    <input type="text" name="username" placeholder="Nom d'utilisateur" onChange={ this.handleChange } />
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Saisissez votre email" onChange={ this.handleChange } />
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" name="username" placeholder="Saisissez un om d'utilisateur" onChange={ this.handleChange } />
+                    <label>Date de naissance</label>
                     <input type="date" placeholder="Date de naissance" name="birthdate" onChange={ this.handleChange } />
-                    <input type="password" placeholder="Mot de passe" name="password" onChange={ this.handleChange } />
+                    <label>Mot de passe</label>
+                    <input type="password" placeholder="Saisissez un mot de passe" name="password" onChange={ this.handleChange } />
+                    <label>Retaper le mot de passe</label>
                     <input type="password" placeholder="Retapez le mot de passe" name="confirmPassword" onChange={ this.handleChange } />
                     <button type="submit">Envoyer</button>
                 </form>

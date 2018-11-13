@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import './App.css';
+import { withRouter } from 'react-router-dom'
 import Auth from "./components/authentication/Auth";
 import Menu from "./components/home/Menu";
 import Game from "./components/game/Game";
@@ -10,6 +11,8 @@ import {authenticate} from "./helpers/authentication";
 import store from "./store";
 import PublicRoute from "./components/PublicRoute";
 import ResetPassword from "./components/form/ResetPassword";
+import 'milligram';
+import './App.css';
 
 class App extends Component {
 
