@@ -8,8 +8,10 @@ class Alert extends Component {
 
         return alert != null ?
             (
-                <div className={ alert.type }>
-                    { alert.message }
+                <div className="alert-container">
+                    <div className={'alert alert-' + alert.type }>
+                        { alert.message }
+                    </div>
                 </div>
             )
             : null
