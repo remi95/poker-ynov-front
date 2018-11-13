@@ -15,7 +15,7 @@ class Menu extends Component {
                 <div className="join-game-container d-flex align-items-center justify-center flex-column">
 
                     <div className="d-flex justify-center align-items-center flex-column left-spade">
-                        <div className="card-value">1</div>
+                        <div className="card-value">A</div>
                         <img src={ spade } alt="spade card" />
                     </div>
 
@@ -30,7 +30,7 @@ class Menu extends Component {
                         </Modal>
 
                         <div className="d-flex justify-center align-items-center flex-column right-spade">
-                            <div className="card-value">1</div>
+                            <div className="card-value">A</div>
                             <img src={ spade } alt="spade card" />
                         </div>
                     </div>
