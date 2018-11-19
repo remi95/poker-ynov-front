@@ -27,9 +27,9 @@ export const sortPlayers = (players) => {
         }
     }
 
-    let me = players[0];
-    players[0] = players[1];
-    players[1] = me;
+    let me = sortedPlayers[0];
+    sortedPlayers[0] = sortedPlayers[1];
+    sortedPlayers[1] = me;
 
     return sortedPlayers
 };
@@ -53,4 +53,16 @@ export const resetPlayersBet = (players) => {
     }
 
     return players;
+};
+
+export const getInitials = (str, separator = '_') => {
+    let initials = str.charAt(0);
+
+    for(var i=1; i < str.length; i++) {
+        if (str[i] === separator) {
+            initials += str[i+1]
+        }
+    }
+
+    return initials
 };

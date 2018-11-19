@@ -1,0 +1,38 @@
+#table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 800px;
+  height: 465px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  margin: auto;
+  border: 3px solid black;
+  background: radial-gradient(#19d019, #017701);
+  padding: 15px;
+  border-radius: 100px;
+  -webkit-box-shadow: 0px 8px 25px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 8px 25px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 8px 25px 1px rgba(0,0,0,0.75);
+
+  > div:not(:first-child) {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #table-top {
+    position: relative;
+    top: -105px;
+  }
+
+  #table-bottom {
+    position: relative;
+    bottom: -13px;
+  }
+
+  #table-center {
+    justify-content: space-between;
+  }
+}

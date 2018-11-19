@@ -14,9 +14,22 @@
 .justify-start {
   justify-content: flex-start;
 }
+.justify-around {
+  justify-content: space-around;
+}
+.justify-between {
+  justify-content: space-between;
+}
 .flex-column {
   flex-direction: column;
 }
-.txt-right {
+.text-right {
   text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+
+.text-red {
+  color: $c-red;
 }

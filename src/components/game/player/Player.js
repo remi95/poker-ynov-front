@@ -4,20 +4,21 @@ import Hand from "./Hand";
 import {Bet} from "./Bet";
 import {ButtonRole} from "./ButtonRole";
 import store from "../../../store";
+import {HiddenHand} from "./HiddenHand";
 
 export const Player = (props) => {
 
     const { user } = props;
 
     return (
-        <div className={'player'}>
+        <div className={'player player-' + user.position}>
             <PlayerInfo username={user.username} money={user.money} />
             {
                 store.getState().userReducer.user.id === user.id
                     ? <Hand />
-                    : null
+                    : <HiddenHand position={user.position} />
             }
-            <div>
+            <div className={'d-flex btn-chips'}>
                 <Bet bet={user.bet} />
                 <ButtonRole role={user.role} />
             </div>

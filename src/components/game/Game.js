@@ -53,7 +53,7 @@ class Game extends Component {
         const game = this.props.gameReducer;
 
         return (
-            <div>
+            <div className={'bg-game'}>
                 <button onClick={this.action}>action</button>
                 <button onClick={this.newStep}>new step</button>
                 <button onClick={this.newRound}>new round</button>
@@ -76,7 +76,7 @@ class Game extends Component {
             players: [
                 {
                     id: 1,
-                    username: 'louis',
+                    username: 'Louis',
                     money: 5000,
                     bet: 0,
                     order: 1,
@@ -85,29 +85,29 @@ class Game extends Component {
                 },
                 {
                     id: 2,
-                    username: 'arnaud',
+                    username: 'Arnaud',
                     money: 5000,
                     bet: 0,
                     order: 2,
-                    role: null,
+                    role: 'DEALER',
                     position: 'top'
                 },
                 {
                     id: 5,
-                    username: 'remi',
+                    username: 'Rémi',
                     money: 5000,
                     bet: 0,
                     order: 3,
-                    role: null,
+                    role: 'BIG_BLIND',
                     position: 'bottom'
                 },
                 {
                     id: 4,
-                    username: 'guillaume',
+                    username: 'Guillaume',
                     money: 5000,
                     bet: 0,
                     order: 4,
-                    role: null,
+                    role: 'SMALL_BLIND',
                     position: 'bottom'
                 }
             ],

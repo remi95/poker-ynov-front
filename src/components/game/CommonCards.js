@@ -4,7 +4,7 @@ import {Card} from "./Card";
 export const CommonCards = (props) => {
 
     return (
-        <div>
+        <div id={'common-cards'} className={'cards'}>
             {
                 props.cards.map(card =>
                     card.value !== null && card.color !== null

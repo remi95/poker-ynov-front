@@ -6,6 +6,8 @@ export const Table = (props) => {
 
     return (
         <div id="table">
+            <CommonCards cards={props.cards} />
+
             <div id="table-top">
                 {
                     props.players.map(user =>
@@ -15,7 +17,7 @@ export const Table = (props) => {
                     )
                 }
             </div>
-            <div id="table-center">
+            <div id="table-center" className={'d-flex justify-between align-items-center'}>
                 {
                     props.players.map(user =>
                         user.position === 'left'
@@ -23,8 +25,6 @@ export const Table = (props) => {
                             : null
                     )
                 }
-
-                <CommonCards cards={props.cards} />
 
                 {
                     props.players.map(user =>

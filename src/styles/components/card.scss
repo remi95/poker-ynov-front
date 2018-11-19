@@ -1,0 +1,46 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 59px;
+  height: 91px;
+  padding: 0 5px;
+  background-color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  font-family: 'Merienda One', cursive;
+
+  &.hidden {
+    background-color: $c-primary-dark;
+    border: 2px solid white;
+    color: white;
+  }
+
+  img {
+    width: 50%;
+  }
+
+  span:first-child {
+    align-self: flex-start;
+  }
+
+  span:last-child {
+    align-self: flex-end;
+  }
+}
+
+#common-cards {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  .card {
+    margin-right: 10px;
+  }
+}
