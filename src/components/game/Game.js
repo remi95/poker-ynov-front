@@ -3,9 +3,17 @@ import Actions from "./Actions";
 import {Table} from "./Table";
 import {init, newRound, newStep, updateAfterAction} from "../../actions/gameAction";
 import connect from "react-redux/es/connect/connect";
+import Cookies from 'js-cookie';
+import socketIOClient from 'socket.io-client';
+import sailsIOClient from 'sails.io.js';
+import {API_URL} from "../../config";
+const io = sailsIOClient(socketIOClient);
+io.sails.url = API_URL;
+io.sails.headers = {
+    "Authorization": `Bearer ${Cookies.get('user-token')}`
+};
 
 class Game extends Component {
-
     action = () => {
         this.props.action({
             pot: 100,
@@ -49,6 +57,19 @@ class Game extends Component {
         })
     };
 
+    testButton = () => {
+        // io.socket.get('/say/hello', (data, jwRes) => {
+        //     console.log('Server responded with status code ' + jwRes.statusCode + ' and data: ', data);
+        // });
+        io.socket.get('/say/hello');
+    };
+
+    fold = () => {
+        io.socket.get('/action/fold', (data, jwRes) => {
+            console.log(data);
+        });
+    };
+
     render() {
         const game = this.props.gameReducer;
 
@@ -57,13 +78,14 @@ class Game extends Component {
                 <button onClick={this.action}>action</button>
                 <button onClick={this.newStep}>new step</button>
                 <button onClick={this.newRound}>new round</button>
+                <button onClick={this.testButton}>test button</button>
 
                 <div>Manche {game.round}</div>
                 <div>Pot : {game.pot} €</div>
 
                 <Table players={game.players} cards={game.cards} />
 
-                <Actions />
+                <Actions fold={ this.fold } />
             </div>
         )
     }
@@ -135,13 +157,20 @@ class Game extends Component {
                     color: 'HEART',
                 },
             ]
-        })
+        });
+        io.socket.on('hello', function (data) {
+            console.log('Socket joined the party!');
+        });
+        io.socket.on('action', function (data) {
+            console.log('action', data);
+        });
     }
 }
 
-const mapStateToProps = ({ gameReducer }) => {
+const mapStateToProps = ({ gameReducer, userReducer }) => {
     return {
-        gameReducer
+        gameReducer,
+        userReducer
     }
 };
 

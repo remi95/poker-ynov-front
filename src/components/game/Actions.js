@@ -7,7 +7,7 @@ class Actions extends Component {
             <div>
                 Actions
 
-                <button>Se coucher</button>
+                <button onClick={ this.props.fold }>Se coucher</button>
                 <button>Check / suivre</button>
                 <button>Miser plus</button>
 
