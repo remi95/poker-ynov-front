@@ -65,9 +65,11 @@ class Game extends Component {
     };
 
     fold = () => {
-        io.socket.get('/action/fold', (data, jwRes) => {
-            console.log(data);
-        });
+        io.socket.post('/action', {
+            type: 'fold',
+            bet: 500,
+            user: this.props.userReducer.user
+        }, (data) => console.log(data));
     };
 
     render() {
@@ -158,10 +160,10 @@ class Game extends Component {
                 },
             ]
         });
-        io.socket.on('hello', function (data) {
+        io.socket.on('hello', (data) => {
             console.log('Socket joined the party!');
         });
-        io.socket.on('action', function (data) {
+        io.socket.on('action', (data) => {
             console.log('action', data);
         });
     }
