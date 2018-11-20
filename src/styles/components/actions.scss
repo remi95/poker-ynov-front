@@ -1,0 +1,100 @@
+#actions {
+
+  #btn-actions {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+    transform: translate(0%, -50%);
+    overflow: hidden;
+
+    .action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ba000d;
+      padding: 10px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      color: white;
+      position: relative;
+      right: -125px;
+      -webkit-transition: right .5s;
+      -moz-transition: right .5s;
+      -ms-transition: right .5s;
+      -o-transition: right .5s;
+      transition: right .5s;
+
+      &:hover {
+        right: 0;
+        cursor: pointer;
+      }
+
+      img {
+        width: 25px;
+      }
+    }
+  }
+
+  #cursor {
+    position: absolute;
+    transform: rotate(-90deg);
+    top: 50%;
+    right: -125px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    z-index: 2;
+
+    .tooltip {
+      position: absolute;
+      right: -60px;
+      padding: 10px;
+      border-radius: 5px;
+      margin-left: 15px;
+      background-color: $bg-white-transparent;
+      transform: rotate(90deg);
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: $table-height;
+      height: 7px;
+      margin: 0;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    input[type=range]:hover {
+      opacity: 1;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 40px;
+      height: 40px;
+      //border-radius: 50%;
+      background: url('../images/chip.png') center;
+      background-size: cover;
+      cursor: pointer;
+      transform: rotate(90deg);
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 40px;
+      height: 40px;
+      //border-radius: 50%;
+      background: url('../images/chip.png') center;
+      background-size: cover;
+      cursor: pointer;
+      transform: rotate(90deg);
+    }
+  }
+}

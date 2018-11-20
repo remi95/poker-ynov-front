@@ -1,4 +1,5 @@
 import React from 'react';
+import {getInitials} from "../../../helpers/game";
 
 export const ButtonRole = (props) => {
 
@@ -6,7 +7,9 @@ export const ButtonRole = (props) => {
         <div>
             {
                 props.role
-                    ? props.role
+                    ?   <div className="btn-role">
+                            {getInitials(props.role)}
+                        </div>
                     : null
             }
         </div>

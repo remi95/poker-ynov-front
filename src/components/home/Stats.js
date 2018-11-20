@@ -22,43 +22,43 @@ class Stats extends Component {
                 <div className="stat-container">
                     <div className="row">
                         <div className="column column-50">Nombre de parties jouées</div>
-                        <div className="column column-50 txt-right">
+                        <div className="column column-50 text-right">
                             <span className="stat-result">5</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="column column-50">Nombre de parties gagnées</div>
-                        <div className="column column-50 txt-right">
+                        <div className="column column-50 text-right">
                             <span className="stat-result">2</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="column column-50">Nombres de manches jouées</div>
-                        <div className="column column-50 txt-right">
+                        <div className="column column-50 text-right">
                             <span className="stat-result">2</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="column column-50"> Nombre de manches gagnées</div>
-                        <div className="column column-50 txt-right">
+                        <div className="column column-50 text-right">
                             <span className="stat-result">8</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="column column-50">Argent gagné total</div>
-                        <div className="column column-50 txt-right">
+                        <div className="column column-50 text-right">
                             <span className="stat-result">12 000</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="column column-50">Plus gros pot remporté</div>
-                        <div className="column column-50 txt-right">
+                        <div className="column column-50 text-right">
                             <span className="stat-result">3500</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="column column-50">Meilleur combinaison</div>
-                        <div className="column column-50 txt-right">
+                        <div className="column column-50 text-right">
                             <span className="stat-result">Double pair</span>
                         </div>
                     </div>
