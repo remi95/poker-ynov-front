@@ -1,6 +1,6 @@
 import React from 'react';
 import {CommonCards} from "./CommonCards";
-import {Player} from "./player/Player";
+import Player from "./player/Player";
 
 export const Table = (props) => {
 

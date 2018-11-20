@@ -54,12 +54,11 @@ class Game extends Component {
 
         return (
             <div className={'bg-game'}>
-                <button onClick={this.action}>action</button>
-                <button onClick={this.newStep}>new step</button>
-                <button onClick={this.newRound}>new round</button>
+                {/*<button onClick={this.action}>action</button>*/}
+                {/*<button onClick={this.newStep}>new step</button>*/}
+                {/*<button onClick={this.newRound}>new round</button>*/}
 
-                <div>Manche {game.round}</div>
-                <div>Pot : {game.pot} €</div>
+                <div id={'pot'}>Pot : {game.pot}€</div>
 
                 <Table players={game.players} cards={game.cards} />
 
@@ -109,7 +108,43 @@ class Game extends Component {
                     order: 4,
                     role: 'SMALL_BLIND',
                     position: 'bottom'
-                }
+                },
+                // {
+                //     id: 1,
+                //     username: 'Louis',
+                //     money: 5000,
+                //     bet: 0,
+                //     order: 1,
+                //     role: 'SMALL_BLIND',
+                //     position: 'left'
+                // },
+                // {
+                //     id: 2,
+                //     username: 'Arnaud',
+                //     money: 5000,
+                //     bet: 0,
+                //     order: 2,
+                //     role: 'DEALER',
+                //     position: 'top'
+                // },
+                // {
+                //     id: 55,
+                //     username: 'Rémi',
+                //     money: 5000,
+                //     bet: 0,
+                //     order: 3,
+                //     role: 'BIG_BLIND',
+                //     position: 'bottom'
+                // },
+                // {
+                //     id: 4,
+                //     username: 'Guillaume',
+                //     money: 5000,
+                //     bet: 0,
+                //     order: 4,
+                //     role: 'SMALL_BLIND',
+                //     position: 'bottom'
+                // }
             ],
             cards: [
                 {

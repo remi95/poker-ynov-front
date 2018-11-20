@@ -1,11 +1,11 @@
 import React from 'react';
-import chip from "../../../images/chip.png";
+import chips from "../../../images/chips.png";
 
 export const Bet = (props) => {
 
     return (
         <div className={'bet'}>
-            <img src={chip} alt="chip" width="25px"/>
+            <img src={chips} alt="chip" width="25px"/>
             <span>{props.bet}€</span>
         </div>
     )

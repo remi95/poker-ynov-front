@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: $bg-white-transparent;
     border-radius: 5px;
     padding: 3px 30px 3px 8px;
     margin-right: 20px;
@@ -24,6 +24,22 @@
   &.player-bottom {
     flex-direction: column-reverse;
   }
+  &.player-right {
+    flex-direction: row-reverse;
+    position: relative;
+    left: 107px;
+
+    .btn-chips {
+      flex-direction: column;
+    }
+
+    .bet {
+      margin-bottom: 5px;
+      min-width: 75px;
+      position: relative;
+      top: -45px;
+    }
+  }
   &.player-left {
     position: relative;
     right: 107px;
@@ -33,7 +49,7 @@
     }
 
     .bet {
-      margin-bottom: 20px;
+      margin-bottom: 5px;
       min-width: 75px;
       position: relative;
       top: -45px;
@@ -80,9 +96,9 @@
   }
 
   .player-info {
-    background-color: rgba(255, 255, 255, 0.7);
-    height: 85px;
-    padding: 15px;
+    background-color: $bg-white-transparent;
+    height: 70px;
+    padding: 5px 15px;
     border-radius: 5px;
   }
 }

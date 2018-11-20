@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 800px;
-  height: 465px;
+  width: $table-width;
+  height: $table-height;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -24,12 +24,12 @@
 
   #table-top {
     position: relative;
-    top: -105px;
+    top: -91px;
   }
 
   #table-bottom {
     position: relative;
-    bottom: -13px;
+    bottom: 2px;
   }
 
   #table-center {

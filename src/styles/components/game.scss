@@ -5,3 +5,19 @@
   background-size: cover;
   height: 100vh;
 }
+
+.above {
+  z-index: 10;
+}
+
+#pot {
+  display: inline-block;
+  background-color: rgba(187, 52, 35, 0.8);
+  color: white;
+  padding: 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border: 2px solid white;
+  border-radius: 5px;
+  margin: 50px;
+}
