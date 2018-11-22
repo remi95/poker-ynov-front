@@ -1,0 +1,39 @@
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
+  border-radius: 5px;
+  text-align: center;
+  padding: 50px;
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  -webkit-box-shadow: 0px 8px 25px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 8px 25px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 8px 25px 1px rgba(0,0,0,0.75);
+
+  img {
+    width: 50%;
+    transform: rotate(0deg);
+    -webkit-animation-name: loading;
+    -moz-animation-name: loading;
+    -o-animation-name: loading;
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  p {
+    font-size: 18px;
+  }
+}
+
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

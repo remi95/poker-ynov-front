@@ -3,15 +3,7 @@ import Actions from "./Actions";
 import {Table} from "./Table";
 import {init, newRound, newStep, updateAfterAction} from "../../actions/gameAction";
 import connect from "react-redux/es/connect/connect";
-import Cookies from 'js-cookie';
-import socketIOClient from 'socket.io-client';
-import sailsIOClient from 'sails.io.js';
-import {API_URL} from "../../config";
-const io = sailsIOClient(socketIOClient);
-io.sails.url = API_URL;
-io.sails.headers = {
-    "Authorization": `Bearer ${Cookies.get('user-token')}`
-};
+import socketClient from "../../clients/socketClient";
 
 class Game extends Component {
 
@@ -58,150 +50,29 @@ class Game extends Component {
         })
     };
 
-    testButton = () => {
-        // io.socket.get('/say/hello', (data, jwRes) => {
-        //     console.log('Server responded with status code ' + jwRes.statusCode + ' and data: ', data);
-        // });
-        io.socket.get('/say/hello');
-    };
-
-    fold = () => {
-        io.socket.post('/action', {
-            type: 'fold',
-            bet: 500,
-            user: this.props.userReducer.user
-        }, (data) => console.log(data));
-    };
-
     render() {
         const game = this.props.gameReducer;
 
         return (
             <div className={'bg-game'}>
-                <button onClick={this.action}>action</button>
-                <button onClick={this.newStep}>new step</button>
-                <button onClick={this.newRound}>new round</button>
-                <button onClick={this.testButton}>test button</button>
-
                 <div id={'pot'}>Pot : {game.pot}€</div>
 
-                <Table players={game.players} cards={game.cards} />
+                <Table
+                    players={game.players}
+                    cards={game.rounds[game.rounds.length -1].communityCards} />
 
-                <Actions fold={ this.fold } />
+                <Actions />
             </div>
         )
     }
 
     componentDidMount() {
-        this.props.init({
-            round: 1,
-            pot: 0,
-            bigBlind: 100,
-            players: [
-                {
-                    id: 1,
-                    username: 'Louis',
-                    money: 5000,
-                    bet: 0,
-                    order: 1,
-                    role: 'SMALL_BLIND',
-                    position: 'left'
-                },
-                {
-                    id: 2,
-                    username: 'Arnaud',
-                    money: 5000,
-                    bet: 0,
-                    order: 2,
-                    role: 'DEALER',
-                    position: 'top'
-                },
-                {
-                    id: 5,
-                    username: 'Rémi',
-                    money: 5000,
-                    bet: 0,
-                    order: 3,
-                    role: 'BIG_BLIND',
-                    position: 'bottom'
-                },
-                {
-                    id: 4,
-                    username: 'Guillaume',
-                    money: 5000,
-                    bet: 0,
-                    order: 4,
-                    role: 'SMALL_BLIND',
-                    position: 'bottom'
-                },
-                // {
-                //     id: 1,
-                //     username: 'Louis',
-                //     money: 5000,
-                //     bet: 0,
-                //     order: 1,
-                //     role: 'SMALL_BLIND',
-                //     position: 'left'
-                // },
-                // {
-                //     id: 2,
-                //     username: 'Arnaud',
-                //     money: 5000,
-                //     bet: 0,
-                //     order: 2,
-                //     role: 'DEALER',
-                //     position: 'top'
-                // },
-                // {
-                //     id: 55,
-                //     username: 'Rémi',
-                //     money: 5000,
-                //     bet: 0,
-                //     order: 3,
-                //     role: 'BIG_BLIND',
-                //     position: 'bottom'
-                // },
-                // {
-                //     id: 4,
-                //     username: 'Guillaume',
-                //     money: 5000,
-                //     bet: 0,
-                //     order: 4,
-                //     role: 'SMALL_BLIND',
-                //     position: 'bottom'
-                // }
-            ],
-            cards: [
-                {
-                    value: 10,
-                    color: 'SPADE',
-                },
-                {
-                    value: 8,
-                    color: 'HEART',
-                },
-                {
-                    value: 'K',
-                    color: 'DIAMOND',
-                },
-            ],
-            hand: [
-                {
-                    value: 10,
-                    color: 'SPADE',
-                },
-                {
-                    value: 10,
-                    color: 'HEART',
-                },
-            ]
+        socketClient.io.socket.on('action', data => {
+            this.props.action(data)
         });
-        io.socket.on('hello', (data) => {
-            console.log('Socket joined the party!');
-        });
-        io.socket.on('action', (data) => {
-            console.log('action', data);
-        });
+        socketClient.io.socket.on('newTurn', data => {
+            this.props.newStep(data)
+        })
     }
 }
 

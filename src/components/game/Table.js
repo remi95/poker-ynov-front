@@ -10,35 +10,35 @@ export const Table = (props) => {
 
             <div id="table-top">
                 {
-                    props.players.map(user =>
-                        user.position === 'top'
-                            ? <Player key={user.id} user={user} />
+                    props.players.map(player =>
+                        player.position === 'top'
+                            ? <Player key={player.user.id} player={player} />
                             : null
                     )
                 }
             </div>
             <div id="table-center" className={'d-flex justify-between align-items-center'}>
                 {
-                    props.players.map(user =>
-                        user.position === 'left'
-                            ? <Player key={user.id} user={user} />
+                    props.players.map(player =>
+                        player.position === 'left'
+                            ? <Player key={player.user.id} player={player} />
                             : null
                     )
                 }
 
                 {
-                    props.players.map(user =>
-                        user.position === 'right'
-                            ? <Player key={user.id} user={user} />
+                    props.players.map(player =>
+                        player.position === 'right'
+                            ? <Player key={player.user.id} player={player} />
                             : null
                     )
                 }
             </div>
             <div id="table-bottom">
                 {
-                    props.players.map(user =>
-                        user.position === 'bottom'
-                            ? <Player key={user.id} user={user} />
+                    props.players.map(player =>
+                        player.position === 'bottom'
+                            ? <Player key={player.user.id} player={player} />
                             : null
                     )
                 }

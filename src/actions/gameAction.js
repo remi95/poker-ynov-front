@@ -1,4 +1,4 @@
-import {GAME_ACTION, GAME_INIT, GAME_ROUND, GAME_STEP} from "../constants";
+import {GAME_ACTION, GAME_GET_HAND, GAME_INIT, GAME_ROUND, GAME_STEP} from "../constants";
 import {placePlayers, resetPlayersBet, sortPlayers} from "../helpers/game";
 import store from "../store";
 
@@ -23,7 +23,6 @@ const round = (data) => {
     }
 };
 
-
 export const init = (data) => {
     let players = sortPlayers(data.players);
     players = placePlayers(players);
@@ -35,27 +34,40 @@ export const init = (data) => {
     }
 };
 
+export const getHand = (data) => {
+    return {
+        type: GAME_GET_HAND,
+        data
+    }
+};
+
 export const updateAfterAction = (data) => {
     return (dispatch) => {
         let players = store.getState().gameReducer.players;
 
         for (let i in players) {
-            if (data.player.id === players[i].id) {
-                players[i].money = data.player.money;
-                players[i].bet = data.player.bet;
-                break;
+            for (let j in data.game.players) {
+                if (data.game.players[j].user.id === players[i].user.id) {
+                    players[i].chips = data.game.players[j].chips;
+                    players[i].currentBet = data.game.players[j].currentBet;
+                    players[i].hasDropped = data.game.players[j].hasDropped;
+                    players[i].hasPlayedTurn = data.game.players[j].hasPlayedTurn;
+                    break;
+                }
             }
         }
 
-        dispatch(action({ pot: data.pot, players }))
+        dispatch(action({ playingPlayerId: data.game.playingPlayerId, players }))
     }
 };
 
-export const newStep = (cards) => {
+export const newStep = (data) => {
     return (dispatch) => {
         let players = resetPlayersBet(store.getState().gameReducer.players);
 
-        dispatch(step({ cards, players }))
+        const {playingPlayerId, rounds} = data.game;
+
+        dispatch(step({ rounds, players, playingPlayerId }))
     }
 };
 

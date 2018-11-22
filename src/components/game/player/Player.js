@@ -9,28 +9,36 @@ import connect from "react-redux/es/connect/connect";
 class Player extends Component {
 
     render () {
-        let { user } = this.props;
+        let { player } = this.props;
+        let { user } = player;
 
         return (
-            <div className={'player player-' + user.position}>
-                <PlayerInfo username={user.username} money={user.money} />
+            <div className={'player player-' + player.position}>
+
+                {
+                    user.id === this.props.gameReducer.playingPlayerId
+                        ? 'A MOI'
+                        : null
+                }
+
+                <PlayerInfo username={user.username} money={player.chips} />
                 {
                     this.props.userReducer.user.id === user.id
                         ?   <Hand />
-                        :   <HiddenHand position={user.position} />
+                        :   <HiddenHand position={player.position} />
                 }
                 <div className={'d-flex btn-chips'}>
-                    <Bet bet={user.bet} />
-                    <ButtonRole role={user.role} />
+                    <Bet bet={player.currentBet} />
+                    {/*<ButtonRole role={player.role} />*/}
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ userReducer }) => {
+const mapStateToProps = ({ userReducer, gameReducer }) => {
     return {
-        userReducer
+        userReducer, gameReducer
     }
 };
 

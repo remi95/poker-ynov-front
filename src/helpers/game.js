@@ -6,7 +6,7 @@ export const getCardSymbol = (symbol) => {
             return require('images/spade.png');
         case 'HEART':
             return require('images/heart.png');
-        case 'CLOVER':
+        case 'CLUB':
             return require('images/clover.png');
         case 'DIAMOND':
             return require('images/diamond.png');
@@ -19,7 +19,7 @@ export const sortPlayers = (players) => {
     let sortedPlayers = [];
 
     for (let i in players) {
-        if (players[i].id === store.getState().userReducer.user.id) {
+        if (players[i].user.id === store.getState().userReducer.user.id) {
             let part1 = players.slice(0, i);
             let part2 = players.slice(i);
             sortedPlayers = part2.concat(part1)
@@ -49,7 +49,7 @@ export const placePlayers = (players) => {
 
 export const resetPlayersBet = (players) => {
     for (let player of players) {
-        player.bet = 0;
+        player.currentBet = 0;
     }
 
     return players;

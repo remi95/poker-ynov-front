@@ -3,6 +3,7 @@ import bet from '../../images/bet.png';
 import sleeping from '../../images/sleeping.png';
 import check from '../../images/check.png';
 import connect from "react-redux/es/connect/connect";
+import socketClient from "../../clients/socketClient";
 
 class Actions extends Component {
 
@@ -10,12 +11,12 @@ class Actions extends Component {
         super(props);
 
         this.state = {
-            currentBet: this.props.gameReducer.bigBlind,
+            cursorBet: this.props.gameReducer.bigBlind,
         }
     }
 
     updateTooltip = (e) => {
-        this.setState({currentBet: e.target.value})
+        this.setState({cursorBet: e.target.value})
     };
 
     actionHoverEffect = () => {
@@ -23,12 +24,31 @@ class Actions extends Component {
         actionsBlock.classList.toggle('above');
     };
 
+    sendAction = (e) => {
+        const action = e.target.getAttribute('data-action');
+        let value = null;
+
+        if (action === 'BET') {
+            value = this.state.cursorBet;
+        }
+        else if (action === 'CALL') {
+
+        }
+
+        socketClient.io.socket.post('/action', {
+            gameId: this.props.gameReducer.id,
+            userId: this.props.userReducer.user.id,
+            actionType: action,
+            value: value,
+        });
+    };
+
     render () {
         let maxBet = 0;
 
         for (let player of this.props.gameReducer.players) {
-            if (this.props.userReducer.user.id === player.id) {
-                maxBet = player.money;
+            if (this.props.userReducer.user.id === player.user.id) {
+                maxBet = player.chips;
             }
         }
 
@@ -40,23 +60,28 @@ class Actions extends Component {
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={this.props.fold}>
+                         onClick={this.sendAction}
+                         data-action='FOLD'>
                         <img src={sleeping} alt=""/>Se coucher
                     </div>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
-                         onMouseEnter={this.actionHoverEffect}>
+                         onMouseEnter={this.actionHoverEffect}
+                         onClick={this.sendAction}
+                         data-action='CALL'>
                         <img src={check} alt=""/>Check / Suivre
                     </div>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
-                         onMouseEnter={this.actionHoverEffect}>
-                        <img src={bet} alt=""/> Miser {this.state.currentBet}€
+                         onMouseEnter={this.actionHoverEffect}
+                         onClick={this.sendAction}
+                         data-action='BET'>
+                        <img src={bet} alt=""/> Miser {this.state.cursorBet}€
                     </div>
                 </div>
 
                 <div id={'cursor'}>
-                    <div className={'tooltip'}>{this.state.currentBet}€</div>
+                    <div className={'tooltip'}>{this.state.cursorBet}€</div>
                     <input type="range"
                            step={game.bigBlind}
                            min={game.bigBlind}

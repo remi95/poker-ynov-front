@@ -12,10 +12,10 @@ export const Card = (props) => {
             ?
                 <div className="card hidden">PY</div>
             :
-                <div className={'card ' + (redColors.includes(props.card.color) ? 'text-red' : '')}>
-                    <span>{props.card.value}</span>
-                    <img src={getCardSymbol(props.card.color)} alt=""/>
-                    <span>{props.card.value}</span>
+                <div className={'card ' + (redColors.includes(props.card.suit) ? 'text-red' : '')}>
+                    <span>{props.card.rank}</span>
+                    <img src={getCardSymbol(props.card.suit)} alt=""/>
+                    <span>{props.card.rank}</span>
                 </div>
         }
         </div>

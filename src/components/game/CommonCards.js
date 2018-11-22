@@ -7,8 +7,8 @@ export const CommonCards = (props) => {
         <div id={'common-cards'} className={'cards'}>
             {
                 props.cards.map(card =>
-                    card.value !== null && card.color !== null
-                        ? <Card key={card.value + card.color} card={card} />
+                    card.rank !== null && card.suit !== null
+                        ? <Card key={card.rank + card.suit} card={card} />
                         : null
                 )
             }

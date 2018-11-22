@@ -11,7 +11,7 @@ class Hand extends Component {
             <div className={'hand d-flex justify-around'}>
                 {
                     this.props.gameReducer.hand.map(card =>
-                        <Card key={card.value + card.color} card={card} />
+                        <Card key={card.rank + card.suit} card={card} />
                     )
                 }
             </div>
