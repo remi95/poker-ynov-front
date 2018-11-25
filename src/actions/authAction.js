@@ -42,7 +42,7 @@ export const logoutAndRedirect = () => {
         Cookies.remove('user-token');
 
         dispatch(logout());
-        dispatch(pushAlert(alert('success', 'Vous avez bien été déconnecté. A bientôt !')))
+        dispatch(pushAlert(alert('success', 'Vous avez bien été déconnecté. A bientôt !')));
         history.push('/login');
     }
 };

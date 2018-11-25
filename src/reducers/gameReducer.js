@@ -1,10 +1,11 @@
-import {GAME_ACTION, GAME_GET_HAND, GAME_INIT, GAME_ROUND, GAME_STEP} from "../constants";
+import {GAME_ACTION, GAME_GET_HAND, GAME_INIT, GAME_RESULTS, GAME_ROUND, GAME_STEP} from "../constants";
 
 /**
  * Example of state after GAME_INIT action.
  */
 let initialState = {
     pot: 0,
+    communityCards: [],
     hand: [
         {
             rank: 'Seven',
@@ -39,7 +40,9 @@ let initialState = {
             }
         }
     ],
+    playersCards: [],
     playingPlayerId: 5,
+    playingPlayerCallValue: 0,
     rounds: [
         {
             communityCards: [],
@@ -62,25 +65,34 @@ const gameReducer = (state = initialState, action) => {
         case GAME_ACTION:
             return {
                 ...state,
-                // pot: action.data.pot,
+                pot: action.data.pot,
                 playingPlayerId: action.data.playingPlayerId,
+                playingPlayerCallValue: action.data.playingPlayerCallValue,
                 players: action.data.players,
             };
         case GAME_STEP:
             return {
                 ...state,
-                rounds: action.data.rounds,
-                playingPlayerId: action.data.playingPlayerId,
                 players: action.data.players,
+                communityCards: action.data.communityCards,
+                playingPlayerId: action.data.playingPlayerId,
+                playingPlayerCallValue: action.data.playingPlayerCallValue,
             };
         case GAME_ROUND:
             return {
                 ...state,
-                round: action.data.round,
-                hand: action.data.hand,
                 pot: 0,
-                cards: [],
+                communityCards: action.data.communityCards,
                 players: action.data.players,
+                playingPlayerId: action.data.playingPlayerId,
+                playingPlayerCallValue: action.data.playingPlayerCallValue,
+                playersCards: action.data.playersCards,
+            };
+        case GAME_RESULTS:
+            return {
+                ...state,
+                players: action.data.players,
+                playersCards: action.data.playersCards,
             };
         default:
             return state;

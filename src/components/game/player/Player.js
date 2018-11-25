@@ -3,7 +3,6 @@ import {PlayerInfo} from "./PlayerInfo";
 import Hand from "./Hand";
 import {Bet} from "./Bet";
 import {ButtonRole} from "./ButtonRole";
-import {HiddenHand} from "./HiddenHand";
 import connect from "react-redux/es/connect/connect";
 
 class Player extends Component {
@@ -20,13 +19,16 @@ class Player extends Component {
                         ? 'A MOI'
                         : null
                 }
+                {
+                    player.combination !== null
+                        ? player.combination.rank
+                        : null
+                }
 
                 <PlayerInfo username={user.username} money={player.chips} />
-                {
-                    this.props.userReducer.user.id === user.id
-                        ?   <Hand />
-                        :   <HiddenHand position={player.position} />
-                }
+
+                <Hand player={user} position={player.position}/>
+
                 <div className={'d-flex btn-chips'}>
                     <Bet bet={player.currentBet} />
                     {/*<ButtonRole role={player.role} />*/}

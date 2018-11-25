@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Actions from "./Actions";
 import {Table} from "./Table";
-import {init, newRound, newStep, updateAfterAction} from "../../actions/gameAction";
+import {finishRound, init, newStep, updateAfterAction} from "../../actions/gameAction";
 import connect from "react-redux/es/connect/connect";
 import socketClient from "../../clients/socketClient";
 
@@ -59,7 +59,7 @@ class Game extends Component {
 
                 <Table
                     players={game.players}
-                    cards={game.rounds[game.rounds.length -1].communityCards} />
+                    cards={game.communityCards} />
 
                 <Actions />
             </div>
@@ -68,11 +68,20 @@ class Game extends Component {
 
     componentDidMount() {
         socketClient.io.socket.on('action', data => {
+            console.log('action', data);
             this.props.action(data)
         });
         socketClient.io.socket.on('newTurn', data => {
+            console.log('newTurn', data);
             this.props.newStep(data)
-        })
+        });
+        socketClient.io.socket.on('newRound', data => {
+            this.props.finishRound(data);
+            console.log('newRound', data);
+        });
+        socketClient.io.socket.on('wrongPlayerPlay', data => {
+            console.log('wrongPlayerPlay', data);
+        });
     }
 }
 
@@ -88,7 +97,7 @@ const mapDispatchToProps = (dispatch) => {
         action: (data) => dispatch(updateAfterAction(data)),
         init: (data) => dispatch(init(data)),
         newStep: (data) => dispatch(newStep(data)),
-        newRound: (data) => dispatch(newRound(data)),
+        finishRound: (data) => dispatch(finishRound(data)),
     }
 };
 

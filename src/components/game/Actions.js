@@ -84,9 +84,9 @@ class Actions extends Component {
                     <div className={'tooltip'}>{this.state.cursorBet}€</div>
                     <input type="range"
                            step={game.bigBlind}
-                           min={game.bigBlind}
+                           min={game.playingPlayerCallValue ? game.playingPlayerCallValue * 2 : game.bigBlind}
                            max={maxBet}
-                           onChange={this.updateTooltip} />
+                           onChange={this.updateTooltip}/>
                 </div>
             </div>
         )
