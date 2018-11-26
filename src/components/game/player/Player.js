@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {PlayerInfo} from "./PlayerInfo";
+import PlayerInfo from "./PlayerInfo";
 import Hand from "./Hand";
 import {Bet} from "./Bet";
 import {ButtonRole} from "./ButtonRole";
@@ -12,20 +12,11 @@ class Player extends Component {
         let { user } = player;
 
         return (
-            <div className={'player player-' + player.position}>
-
-                {
-                    user.id === this.props.gameReducer.playingPlayerId
-                        ? 'A MOI'
-                        : null
-                }
-                {
-                    player.combination !== null
-                        ? player.combination.rank
-                        : null
-                }
-
-                <PlayerInfo username={user.username} money={player.chips} />
+            <div className={'player player-' + player.position + (player.hasDropped ? ' fold' : '')}>
+                <PlayerInfo
+                    username={user.username}
+                    money={player.chips}
+                    active={user.id === this.props.gameReducer.playingPlayerId} />
 
                 <Hand player={user} position={player.position}/>
 

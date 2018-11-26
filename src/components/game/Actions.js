@@ -13,7 +13,10 @@ class Actions extends Component {
         this.state = {
             cursorBet: this.props.gameReducer.bigBlind,
             minBet: this.props.gameReducer.bigBlind,
-        }
+            defaultAction: 'CALL',
+        };
+
+        this.timer = null;
     }
 
     updateTooltip = (e) => {
@@ -25,16 +28,18 @@ class Actions extends Component {
         actionsBlock.classList.toggle('above');
     };
 
-    sendAction = (e) => {
-        const action = e.target.getAttribute('data-action');
+    sendAction = (action = null) => {
         let value = null;
+
+        if (action === null) {
+            action = this.state.defaultAction
+        }
 
         if (action === 'BET') {
             value = this.state.cursorBet;
         }
-        else if (action === 'CALL') {
 
-        }
+        clearTimeout(this.timer);
 
         socketClient.io.socket.post('/action', {
             gameId: this.props.gameReducer.id,
@@ -42,6 +47,26 @@ class Actions extends Component {
             actionType: action,
             value: value,
         });
+    };
+
+    setDefaultAction = () => {
+        let defaultAction = 'CALL';
+        if (this.props.gameReducer.playingPlayerCallValue) {
+            defaultAction = 'FOLD';
+        }
+
+        this.setState({ defaultAction })
+    };
+
+    startTimer = () => {
+        this.setDefaultAction();
+        clearTimeout(this.timer);
+
+        if (!this.props.gameReducer.showingResults) {
+            this.timer = setTimeout(() => {
+                this.sendAction()
+            }, 10000);
+        }
     };
 
     render () {
@@ -55,22 +80,21 @@ class Actions extends Component {
 
         const game = this.props.gameReducer;
         const user = this.props.userReducer.user;
+        const activePlayer = game.playingPlayerId === user.id;
 
         return (
             <div id={'actions'}>
-                <div id={'btn-actions'} className={game.playingPlayerId === user.id ? '' : 'disable'}>
+                <div id={'btn-actions'} className={activePlayer ? '' : 'disable'}>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={this.sendAction}
-                         data-action='FOLD'>
+                         onClick={() => this.sendAction('FOLD')} >
                         <img src={sleeping} alt=""/>Se coucher
                     </div>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={this.sendAction}
-                         data-action='CALL'>
+                         onClick={() => this.sendAction('CALL')} >
                         <img src={check} alt=""/>
                         {
                             game.playingPlayerCallValue
@@ -81,13 +105,12 @@ class Actions extends Component {
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={this.sendAction}
-                         data-action='BET'>
+                         onClick={() => this.sendAction('BET')} >
                         <img src={bet} alt=""/> Miser {this.state.cursorBet}€
                     </div>
                 </div>
 
-                <div id={'cursor'} className={game.playingPlayerId === user.id ? '' : 'hide'}>
+                <div id={'cursor'} className={activePlayer? '' : 'hide'}>
                     <div className={'tooltip'}>{this.state.cursorBet}€</div>
                     <input type="range"
                            step={game.smallBlind}
@@ -99,8 +122,14 @@ class Actions extends Component {
         )
     }
 
+    componentDidMount() {
+        this.startTimer();
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps !== this.props && this.props.gameReducer.playingPlayerId === this.props.userReducer.user.id) {
+
+            this.startTimer();
 
             const game = this.props.gameReducer;
             const cursor = document.querySelector('input[type=range]');
