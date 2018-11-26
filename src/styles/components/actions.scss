@@ -36,6 +36,17 @@
         width: 25px;
       }
     }
+
+    &.disable {
+      .action {
+        background-color: #9d9d9d;
+        cursor: not-allowed;
+
+        &:hover {
+          right: -125px;
+        }
+      }
+    }
   }
 
   #cursor {

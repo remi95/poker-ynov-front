@@ -52,11 +52,12 @@ class Actions extends Component {
             }
         }
 
-        let game = this.props.gameReducer;
+        const game = this.props.gameReducer;
+        const user = this.props.userReducer.user;
 
         return (
             <div id={'actions'}>
-                <div id={'btn-actions'}>
+                <div id={'btn-actions'} className={game.playingPlayerId === user.id ? '' : 'disable'}>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
@@ -69,7 +70,12 @@ class Actions extends Component {
                          onMouseEnter={this.actionHoverEffect}
                          onClick={this.sendAction}
                          data-action='CALL'>
-                        <img src={check} alt=""/>Check / Suivre
+                        <img src={check} alt=""/>
+                        {
+                            game.playingPlayerCallValue
+                                ? 'Suivre ' + game.playingPlayerCallValue
+                                : 'Check'
+                        }
                     </div>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
@@ -80,7 +86,7 @@ class Actions extends Component {
                     </div>
                 </div>
 
-                <div id={'cursor'}>
+                <div id={'cursor'} className={game.playingPlayerId === user.id ? '' : 'hide'}>
                     <div className={'tooltip'}>{this.state.cursorBet}€</div>
                     <input type="range"
                            step={game.bigBlind}
