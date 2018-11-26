@@ -12,6 +12,7 @@ class Actions extends Component {
 
         this.state = {
             cursorBet: this.props.gameReducer.bigBlind,
+            minBet: this.props.gameReducer.bigBlind,
         }
     }
 
@@ -73,7 +74,7 @@ class Actions extends Component {
                         <img src={check} alt=""/>
                         {
                             game.playingPlayerCallValue
-                                ? 'Suivre ' + game.playingPlayerCallValue
+                                ? 'Suivre ' + game.playingPlayerCallValue + '€'
                                 : 'Check'
                         }
                     </div>
@@ -89,13 +90,47 @@ class Actions extends Component {
                 <div id={'cursor'} className={game.playingPlayerId === user.id ? '' : 'hide'}>
                     <div className={'tooltip'}>{this.state.cursorBet}€</div>
                     <input type="range"
-                           step={game.bigBlind}
-                           min={game.playingPlayerCallValue ? game.playingPlayerCallValue * 2 : game.bigBlind}
+                           step={game.smallBlind}
+                           min={this.state.minBet}
                            max={maxBet}
                            onChange={this.updateTooltip}/>
                 </div>
             </div>
         )
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps !== this.props && this.props.gameReducer.playingPlayerId === this.props.userReducer.user.id) {
+
+            const game = this.props.gameReducer;
+            const cursor = document.querySelector('input[type=range]');
+            let playerChips = 0;
+
+            for (let player of this.props.gameReducer.players) {
+                if (player.user.id === game.playingPlayerId) {
+                    playerChips = player.chips;
+                }
+            }
+
+            if (game.playingPlayerCallValue !== 0) {
+                let minBet = (game.playingPlayerCallValue * 2 > playerChips)
+                    ? playerChips
+                    : game.playingPlayerCallValue * 2;
+
+                cursor.value = minBet;
+                this.setState({
+                    cursorBet: minBet,
+                    minBet,
+                })
+            }
+            else {
+                cursor.value = game.bigBlind;
+                this.setState({
+                    cursorBet: game.bigBlind,
+                    minBet: game.bigBlind,
+                })
+            }
+        }
     }
 }
 
