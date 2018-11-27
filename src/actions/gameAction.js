@@ -144,15 +144,15 @@ const showResults = (data) => {
             ? [data.winnerId]
             : data.winnerIds;
 
-        let previousCommunityCards = (droppedPlayers < players.length -1)
-            ? data.previousCommunityCards
-            : [];
-
+        console.log('PRVIOUS CARDS', data.previousCommunityCards)
         dispatch(results({
             players,
             playersCards: data.playersCards,
             winnerIds,
-            communityCards: previousCommunityCards,
+            communityCards: data.previousCommunityCards && data.previousCommunityCards.length > 0
+                ? data.previousCommunityCards
+                : getState().gameReducer.communityCards,
+            allPlayersDropped: droppedPlayers >= players.length,
         }))
     };
 };

@@ -69,7 +69,8 @@ class Game extends Component {
                         ? <Results
                             players={game.players}
                             winnerIds={game.winnerIds}
-                            communityCards={game.communityCards} />
+                            communityCards={game.communityCards}
+                            allPlayersDropped={game.allPlayersDropped} />
                         : null
                 }
             </div>
@@ -77,6 +78,7 @@ class Game extends Component {
     }
 
     componentDidMount() {
+        console.log('GAME STATE', this.props.gameReducer)
         socketClient.io.socket.on('action', data => {
             console.log('action', data);
             this.props.action(data)

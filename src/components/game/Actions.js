@@ -99,7 +99,7 @@ class Actions extends Component {
                         <img src={check} alt=""/>
                         {
                             game.playingPlayerCallValue
-                                ? 'Suivre ' + game.playingPlayerCallValue + '€'
+                                ? 'Suivre ' + (game.playingPlayerCallValue > playerChips ? 'TAPIS' : game.playingPlayerCallValue + '€')
                                 : 'Check'
                         }
                     </div>
