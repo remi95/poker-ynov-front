@@ -98,6 +98,7 @@ const gameReducer = (state = initialState, action) => {
                 playersCards: action.data.playersCards,
                 winnerIds: action.data.winnerIds,
                 playingPlayerId: 0,
+                communityCards: action.data.communityCards,
                 showingResults: true,
             };
         default:

@@ -113,21 +113,20 @@ export const finishRound = (data) => {
         dispatch(showResults(data));
 
         setTimeout(() => {
-                dispatch(startNewRound(data));
+                if (data.gameStatus === 'FINISHED') {
+                    dispatch(finishGame(data));
+                }
+                else {
+                    dispatch(startNewRound(data));
+                }
             }, 10000)
     };
-};
-
-export const finishGame = (data) => {
-    return (dispatch) => {
-        dispatch(pushAlert(alert('success', 'La partie est terminée. N\'hésitez pas à rejouer !')));
-        history.push('/');
-    }
 };
 
 const showResults = (data) => {
     return (dispatch, getState) => {
         let players = getState().gameReducer.players;
+        let droppedPlayers = 0;
 
         for (let i in players) {
             for (let j in data.players) {
@@ -137,14 +136,23 @@ const showResults = (data) => {
                     break;
                 }
             }
+
+            droppedPlayers += players[i].hasDropped ? 1 : 0;
         }
 
-        const {playersCards, winnerIds} = data;
+        let winnerIds = data.gameStatus === 'FINISHED'
+            ? [data.winnerId]
+            : data.winnerIds;
+
+        let previousCommunityCards = (droppedPlayers < players.length -1)
+            ? data.previousCommunityCards
+            : [];
 
         dispatch(results({
             players,
-            playersCards,
+            playersCards: data.playersCards,
             winnerIds,
+            communityCards: previousCommunityCards,
         }))
     };
 };
@@ -185,3 +193,25 @@ const startNewRound = (data) => {
     };
 };
 
+const finishGame = (data) => {
+    return (dispatch, getState) => {
+        let winnerName = null;
+        let message = null;
+
+        for (let player of data.players) {
+            if (player.user.id === data.winnerId) {
+                winnerName = player.user.username;
+
+                if (player.user.id === getState().userReducer.user.id) {
+                    message = 'Bravo, vous avez remporté la partie ! Gagnez plus en rejouant !'
+                }
+                else {
+                    message = `La partie est terminée, ${winnerName} a gagné ! Retentez vite votre chance en rejouant.`;
+                }
+            }
+        }
+
+        dispatch(pushAlert(alert('success', message)));
+        history.push('/');
+    }
+};
