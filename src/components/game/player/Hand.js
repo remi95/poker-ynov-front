@@ -7,7 +7,6 @@ class Hand extends Component {
     render() {
         const game = this.props.gameReducer;
         const {user} = this.props.userReducer;
-        console.log(game)
 
         return (
             <div className={'hand d-flex justify-around pos-' + this.props.position}>
