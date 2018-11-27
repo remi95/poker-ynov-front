@@ -1,65 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import {logoutAndRedirect} from "../../actions/authAction";
+import logo from "../../logo.png";
 
 class Stats extends Component {
 
     render() {
-        const { birthdate, username } = this.props.userReducer.user;
-        const birthYearDate = birthdate.split('-');
-        const now = new Date().getFullYear();
+        const { username } = this.props.userReducer.user;
 
         return (
             <div className="container modal-content-container">
-
-                <div className="stat-user-info-container">
-                    <div>{ username }</div>
-                    <div>{ now - birthYearDate[0] } ans</div>
-                    <div><button onClick={ this.props.logout }>Déconnexion</button></div>
+                <div className="stat-title-container">
+                    <img src={logo} alt="logo poker ynov"/>
+                    <h2 className="text-center">Statistiques de { username }</h2>
                 </div>
 
-                <h2>Statistiques</h2>
                 <div className="stat-container">
                     <div className="row">
-                        <div className="column column-50">Nombre de parties jouées</div>
-                        <div className="column column-50 text-right">
-                            <span className="stat-result">5</span>
+                        <div className="column column-50 _left">
+                            <div className="text-right d-flex align-items-center">Nombre de parties jouées</div>
+                            <div className="text-right d-flex align-items-center">Nombre de parties gagnées</div>
+                            <div className="text-right d-flex align-items-center">Nombre de manches jouées</div>
+                            <div className="text-right d-flex align-items-center">Nombre de manches gagnées</div>
+                            <div className="text-right d-flex align-items-center">Argent gagné total</div>
+                            <div className="text-right d-flex align-items-center">Plus gros pot remporté</div>
+                            <div className="text-right d-flex align-items-center">Meilleur combinaison</div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="column column-50">Nombre de parties gagnées</div>
-                        <div className="column column-50 text-right">
-                            <span className="stat-result">2</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="column column-50">Nombres de manches jouées</div>
-                        <div className="column column-50 text-right">
-                            <span className="stat-result">2</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="column column-50"> Nombre de manches gagnées</div>
-                        <div className="column column-50 text-right">
-                            <span className="stat-result">8</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="column column-50">Argent gagné total</div>
-                        <div className="column column-50 text-right">
-                            <span className="stat-result">12 000</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="column column-50">Plus gros pot remporté</div>
-                        <div className="column column-50 text-right">
-                            <span className="stat-result">3500</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="column column-50">Meilleur combinaison</div>
-                        <div className="column column-50 text-right">
-                            <span className="stat-result">Double pair</span>
+                        <div className="column column-50">
+                            <div className="stat-result d-flex align-items-center justify-center">12</div>
+                            <div className="stat-result d-flex align-items-center justify-center">12</div>
+                            <div className="stat-result d-flex align-items-center justify-center">12</div>
+                            <div className="stat-result d-flex align-items-center justify-center">12</div>
+                            <div className="stat-result d-flex align-items-center justify-center">12</div>
+                            <div className="stat-result d-flex align-items-center justify-center">12</div>
+                            <div className="stat-result d-flex align-items-center justify-center">12</div>
                         </div>
                     </div>
                 </div>
@@ -74,10 +47,4 @@ const mapStateToProps = ({  userReducer}) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        logout: (alert) => dispatch(logoutAndRedirect(alert))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Stats);
+export default connect(mapStateToProps, null)(Stats);
