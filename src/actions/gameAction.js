@@ -183,3 +183,8 @@ const startNewRound = (data) => {
     };
 };
 
+export const cantJoinGame = (message) => {
+    return async(dispatch) => {
+        dispatch(pushAlert(alert('error', message)));
+    }
+};

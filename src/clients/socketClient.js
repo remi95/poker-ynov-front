@@ -14,12 +14,6 @@ class SocketClient {
         };
     }
 
-    joinGame = (userId) => {
-        this.io.socket.post(
-            '/user/join', { userId }
-        );
-    };
-
 }
 
 const socketClient = new SocketClient();
