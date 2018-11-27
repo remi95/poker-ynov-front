@@ -81,6 +81,9 @@ class Game extends Component {
             console.log('action', data);
             this.props.action(data)
         });
+        socketClient.io.socket.on('actionType', data => {
+            console.log('actionType', data);
+        });
         socketClient.io.socket.on('newTurn', data => {
             console.log('newTurn', data);
             this.props.newStep(data)

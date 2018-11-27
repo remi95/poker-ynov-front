@@ -11,7 +11,6 @@ class Signup extends Component {
             user: {
                 email: '',
                 username: '',
-                birthdate: '',
                 password: '',
                 confirmPassword: '',
             },
@@ -36,7 +35,7 @@ class Signup extends Component {
     handleSubmit(e) {
         e.preventDefault();
         const { user } = this.state;
-        if (user.email && user.username && user.birthdate && user.password && user.confirmPassword) {
+        if (user.email && user.username && user.password && user.confirmPassword) {
             this.props.register(user);
         }
         else {
@@ -52,8 +51,6 @@ class Signup extends Component {
                     <input type="email" name="email" placeholder="Saisissez votre email" onChange={ this.handleChange } />
                     <label>Nom d'utilisateur</label>
                     <input type="text" name="username" placeholder="Saisissez un nom d'utilisateur" onChange={ this.handleChange } />
-                    <label>Date de naissance</label>
-                    <input type="date" placeholder="Date de naissance" name="birthdate" onChange={ this.handleChange } />
                     <label>Mot de passe</label>
                     <input type="password" placeholder="Saisissez un mot de passe" name="password" onChange={ this.handleChange } />
                     <label>Retaper le mot de passe</label>
