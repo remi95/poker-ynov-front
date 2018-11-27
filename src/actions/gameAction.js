@@ -144,7 +144,6 @@ const showResults = (data) => {
             ? [data.winnerId]
             : data.winnerIds;
 
-        console.log('PRVIOUS CARDS', data.previousCommunityCards)
         dispatch(results({
             players,
             playersCards: data.playersCards,
@@ -213,5 +212,11 @@ const finishGame = (data) => {
 
         dispatch(pushAlert(alert('success', message)));
         history.push('/');
+    }
+};
+
+export const cantJoinGame = (message) => {
+    return async(dispatch) => {
+        dispatch(pushAlert(alert('error', message)));
     }
 };

@@ -7,9 +7,10 @@ import logo from "../../logo.png";
 import spade from "../../images/spade.png";
 import {Loading} from "../general/Loading";
 import history from "../../helpers/history";
-import {getHand, init} from "../../actions/gameAction";
+import {cantJoinGame, getHand, init} from "../../actions/gameAction";
 import socketClient from "../../clients/socketClient";
-
+import {logoutAndRedirect} from "../../actions/authAction";
+import logout from "../../images/logout.svg";
 
 class Menu extends Component {
 
@@ -22,8 +23,15 @@ class Menu extends Component {
     }
 
     joinGame = () => {
-        socketClient.joinGame(this.props.userReducer.user.id);
-        this.setState({ loading: true })
+        socketClient.io.socket.post('/user/join', { userId: this.props.userReducer.user.id }, (data, jwRes) => {
+            if (jwRes.statusCode !== 400) {
+                this.setState({ loading: true })
+            }
+            else {
+                this.props.cantJoinGame(`You can't join game, ${data.message}`);
+            }
+        }
+        );
     };
 
     startGame = () => {
@@ -53,7 +61,9 @@ class Menu extends Component {
                     <div className="join-game-button-container d-flex align-items-center justify-start flex-column">
                         <button className="button btn-join-game" onClick={this.joinGame}>Rejoindre une partie</button>
 
-                        <button className="button button-outline btn-profile" onClick={ () => this.props.openModal() }>Mon profil</button>
+                        <button className="button button-outline btn-profile" onClick={ () => this.props.openModal() }>Mes statistiques</button>
+
+                        <button className="button button-outline btn-logout" onClick={ () => this.props.logout() }><img src={ logout } alt="logout"/></button>
 
                         <Modal open={ this.props.modalReducer.isOpen } onClose={ () => this.props.closeModal() } center>
                             <Stats />
@@ -92,6 +102,8 @@ const mapDispatchToProps = (dispatch) => {
         closeModal: () => dispatch(closeModal()),
         init: (data) => dispatch(init(data)),
         getHand: (data) => dispatch(getHand(data)),
+        logout: (alert) => dispatch(logoutAndRedirect(alert)),
+        cantJoinGame: (alert) => dispatch(cantJoinGame(alert))
     }
 };
 
