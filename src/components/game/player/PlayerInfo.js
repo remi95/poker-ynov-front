@@ -12,7 +12,7 @@ class PlayerInfo extends Component {
         return (
             <div className={'player-info text-center ' + (this.props.active ? 'active' : '')}>
                 <div className={'username'}>{this.props.username}</div>
-                <span className={'money'}>{this.props.money} €</span>
+                <span className={'money'}>{this.props.money}€</span>
                 {
                     this.props.active
                         ?   <div className={'timer-container'}>

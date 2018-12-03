@@ -22,7 +22,11 @@ class Player extends Component {
 
                 <div className={'d-flex btn-chips'}>
                     <Bet bet={player.currentBet} />
-                    {/*<ButtonRole role={player.role} />*/}
+                    {
+                        player.roles.map(role =>
+                            <ButtonRole key={role} role={role} />
+                        )
+                    }
                 </div>
             </div>
         )

@@ -23,7 +23,7 @@ class Hand extends Component {
                             ?   this.props.gameReducer.hand.map(card =>
                                     <Card key={card.rank + card.suit} card={card} />
                                 )
-                            :   <div className={'hand d-flex justify-around'}>
+                            :   <div className={'w-100 d-flex justify-around'}>
                                     <Card hidden={true} />
                                     <Card hidden={true} />
                                 </div>

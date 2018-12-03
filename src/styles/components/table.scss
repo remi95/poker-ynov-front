@@ -25,14 +25,17 @@
   #table-top {
     position: relative;
     top: -91px;
+    min-height: 235px;
   }
 
   #table-bottom {
     position: relative;
     bottom: 2px;
+    min-height: 235px;
   }
 
   #table-center {
     justify-content: space-between;
+    min-height: 50px;
   }
 }

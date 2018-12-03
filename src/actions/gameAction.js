@@ -1,4 +1,12 @@
-import {GAME_ACTION, GAME_GET_HAND, GAME_INIT, GAME_RESULTS, GAME_ROUND, GAME_STEP} from "../constants";
+import {
+    GAME_ACTION,
+    GAME_GET_HAND,
+    GAME_INIT,
+    GAME_LAST_ACTION,
+    GAME_RESULTS,
+    GAME_ROUND,
+    GAME_STEP
+} from "../constants";
 import {placePlayers, sortPlayers} from "../helpers/game";
 import {pushAlert} from "./alertAction";
 import {alert} from "../helpers/global";
@@ -9,6 +17,13 @@ const action = (data) => {
     return {
         type: GAME_ACTION,
         data
+    }
+};
+
+export const lastAction = (data) => {
+    return {
+        type: GAME_LAST_ACTION,
+        data,
     }
 };
 
@@ -160,6 +175,7 @@ const startNewRound = (data) => {
                     players[i].currentBet = data.players[j].currentBet;
                     players[i].hasDropped = data.players[j].hasDropped;
                     players[i].isEliminated = data.players[j].isEliminated;
+                    players[i].roles = data.players[j].roles;
                     players[i].combination = null;
                     break;
                 }

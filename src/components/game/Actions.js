@@ -65,7 +65,7 @@ class Actions extends Component {
         if (!this.props.gameReducer.showingResults) {
             this.timer = setTimeout(() => {
                 this.sendAction()
-            }, 15000);
+            }, 10000);
         }
     };
 

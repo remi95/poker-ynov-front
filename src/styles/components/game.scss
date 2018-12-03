@@ -42,7 +42,7 @@
       -moz-animation-name: timer;
       -o-animation-name: timer;
       animation-name: timer;
-      animation-duration: 15s;
+      animation-duration: 10s;
       animation-timing-function: linear;
     }
   }
@@ -51,4 +51,14 @@
 @keyframes timer {
   0% { width: calc(100% - 4px); }
   100% { width: 0; }
+}
+
+#action-indicator {
+  position: absolute;
+  top: calc(50% - 60px);
+  left: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-family: 'Merienda One', cursive;
 }

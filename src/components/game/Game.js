@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Actions from "./Actions";
 import {Table} from "./Table";
-import {finishRound, init, newStep, updateAfterAction, finishGame} from "../../actions/gameAction";
+import {finishRound, init, newStep, updateAfterAction, lastAction, finishGame} from "../../actions/gameAction";
 import connect from "react-redux/es/connect/connect";
 import socketClient from "../../clients/socketClient";
 import {Results} from "./Results";
@@ -62,6 +62,12 @@ class Game extends Component {
                     players={game.players}
                     cards={game.communityCards} />
 
+                {
+                    game.lastAction !== null
+                        ? <div id="action-indicator">{game.lastAction}</div>
+                        : null
+                }
+
                 <Actions />
 
                 {
@@ -83,6 +89,10 @@ class Game extends Component {
         });
         socketClient.io.socket.on('actionType', data => {
             console.log('actionType', data);
+            this.props.lastAction(data);
+            setTimeout(() => {
+                this.props.lastAction(null);
+            }, 1000)
         });
         socketClient.io.socket.on('newTurn', data => {
             console.log('newTurn', data);
@@ -112,6 +122,7 @@ const mapStateToProps = ({ gameReducer, userReducer }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         action: (data) => dispatch(updateAfterAction(data)),
+        lastAction: (data) => dispatch(lastAction(data)),
         init: (data) => dispatch(init(data)),
         newStep: (data) => dispatch(newStep(data)),
         finishRound: (data) => dispatch(finishRound(data)),
