@@ -29,8 +29,18 @@ class apiClient {
         }
     }
 
-    async get(endpoint) {
+    async get(endpoint, token=null) {
         try {
+            if (token !== null) {
+                const response = await fetch(`${this.url}/${endpoint}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                const json = await response.json();
+                return json;
+            }
+
             const response = await fetch(`${this.url}/${endpoint}`);
 
             const json = await response.json();
