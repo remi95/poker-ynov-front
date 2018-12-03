@@ -1,7 +1,7 @@
 #table {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   width: $table-width;
   height: $table-height;
   position: absolute;
@@ -24,13 +24,13 @@
 
   #table-top {
     position: relative;
-    top: -91px;
+    top: -45px;
     min-height: 235px;
   }
 
   #table-bottom {
     position: relative;
-    bottom: 2px;
+    bottom: -45px;
     min-height: 235px;
   }
 

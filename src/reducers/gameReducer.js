@@ -47,7 +47,7 @@ let initialState = {
                 money: 50000,
                 username: "CP",
             }
-        }
+        },
     ],
     playersCards: [],
     playingPlayerId: 5,

@@ -71,6 +71,12 @@ class Game extends Component {
         })
     };
 
+    playerIndicator = () => {
+        if (this.props.gameReducer.playingPlayerId === this.props.userReducer.user.id) {
+            this.props.pushAlert(alert('info', 'A votre tour !'), 3000)
+        }
+    };
+
     render() {
         const game = this.props.gameReducer;
 
@@ -107,6 +113,8 @@ class Game extends Component {
     }
 
     componentDidMount() {
+        this.playerIndicator();
+
         socketClient.io.socket.on('action', data => {
             console.log('action', data);
             this.props.action(data)
@@ -132,6 +140,12 @@ class Game extends Component {
                 this.setState({ lastAction: {} })
             }, 1000)
         });
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.gameReducer.playingPlayerId !== this.props.gameReducer.playingPlayerId) {
+            this.playerIndicator();
+        }
     }
 }
 

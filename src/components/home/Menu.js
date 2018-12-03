@@ -56,11 +56,10 @@ class Menu extends Component {
                         <div className="card-value">A</div>
                         <img src={ spade } alt="spade card" />
                     </div>
-
                     <img src={logo} alt="logo poker ynov"/>
                     <div className="join-game-button-container d-flex align-items-center justify-start flex-column">
                         <button className="button btn-join-game"
-                                onClick={!this.state.loading ? () => this.joinGame() : null}>Rejoindre une partie</button>
+                                onClick={this.joinGame}>Rejoindre une partie</button>
 
                         <button className="button button-outline btn-profile"
                                 onClick={ () => this.props.openModal() }>Mes statistiques</button>
@@ -77,7 +76,6 @@ class Menu extends Component {
                             <img src={ spade } alt="spade card" />
                         </div>
                     </div>
-
                     {
                         this.state.loading
                             ? <Loading message='En attente de joueurs...' />
