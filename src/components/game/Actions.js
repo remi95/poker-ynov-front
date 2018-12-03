@@ -70,17 +70,18 @@ class Actions extends Component {
     };
 
     render () {
-        let maxBet = 0;
+        let playerChips = 0;
 
         for (let player of this.props.gameReducer.players) {
             if (this.props.userReducer.user.id === player.user.id) {
-                maxBet = player.chips;
+                playerChips = player.chips;
             }
         }
 
         const game = this.props.gameReducer;
         const user = this.props.userReducer.user;
         const activePlayer = game.playingPlayerId === user.id;
+        const canRaise = playerChips > game.playingPlayerCallValue;
 
         return (
             <div id={'actions'}>
@@ -88,34 +89,45 @@ class Actions extends Component {
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={activePlayer ? () => this.sendAction('FOLD') : null } >
+                         onClick={activePlayer ? () => this.sendAction('FOLD') : null} >
                         <img src={sleeping} alt=""/>Se coucher
                     </div>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={activePlayer ? () => this.sendAction('CALL') : null } >
+                         onClick={activePlayer ? () => this.sendAction('CALL') : null} >
                         <img src={check} alt=""/>
                         {
                             game.playingPlayerCallValue
-                                ? 'Suivre ' + game.playingPlayerCallValue + '€'
+                                ? 'Suivre ' + (game.playingPlayerCallValue > playerChips ? 'TAPIS' : game.playingPlayerCallValue + '€')
                                 : 'Check'
                         }
                     </div>
-                    <div className={'action'}
+                    <div className={'action ' + (canRaise ? '' : 'hide')}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={activePlayer ? () => this.sendAction('BET') : null } >
-                        <img src={bet} alt=""/> Miser {this.state.cursorBet}€
+                         onClick={activePlayer ? () => this.sendAction('BET') : null} >
+                        <img src={bet} alt=""/>
+                        {
+                            this.state.cursorBet == playerChips
+                                ? 'TAPIS'
+                                : `Miser ${this.state.cursorBet}€`
+                        }
                     </div>
                 </div>
 
-                <div id={'cursor'} className={activePlayer? '' : 'hide'}>
-                    <div className={'tooltip'}>{this.state.cursorBet}€</div>
+                <div id={'cursor'} className={activePlayer && canRaise ? '' : 'hide'}>
+                    <div className={'tooltip'}>
+                        {
+                            this.state.cursorBet == playerChips
+                                ? 'TAPIS'
+                                : this.state.cursorBet + '€'
+                        }
+                    </div>
                     <input type="range"
                            step={game.smallBlind}
                            min={this.state.minBet}
-                           max={maxBet}
+                           max={playerChips}
                            onChange={this.updateTooltip}/>
                 </div>
             </div>

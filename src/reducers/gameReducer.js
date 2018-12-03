@@ -61,6 +61,7 @@ let initialState = {
     smallBlind: 10,
     startingChips: 2000,
     showingResults: false,
+    allPlayersDropped: false,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -99,6 +100,7 @@ const gameReducer = (state = initialState, action) => {
                 playersCards: action.data.playersCards,
                 showingResults: false,
                 winnerIds: [],
+                allPlayersDropped: false,
             };
         case GAME_RESULTS:
             return {
@@ -107,7 +109,9 @@ const gameReducer = (state = initialState, action) => {
                 playersCards: action.data.playersCards,
                 winnerIds: action.data.winnerIds,
                 playingPlayerId: 0,
+                communityCards: action.data.communityCards,
                 showingResults: true,
+                allPlayersDropped: action.data.allPlayersDropped,
             };
         default:
             return state;

@@ -11,7 +11,7 @@ class Hand extends Component {
         return (
             <div className={'hand d-flex justify-around pos-' + this.props.position}>
                 {
-                    game.playersCards.length > 0
+                    game.playersCards.length > 0 && !game.allPlayersDropped
                         ? game.playersCards.map(player =>
                             player.userId === this.props.player.id
                                 ? player.previousDownCards.map(card =>

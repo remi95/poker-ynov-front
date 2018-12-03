@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Actions from "./Actions";
 import {Table} from "./Table";
-import {finishRound, init, newStep, updateAfterAction, finishGame} from "../../actions/gameAction";
+import {finishRound, init, newStep, updateAfterAction} from "../../actions/gameAction";
 import connect from "react-redux/es/connect/connect";
 import socketClient from "../../clients/socketClient";
 import {Results} from "./Results";
@@ -94,11 +94,12 @@ class Game extends Component {
                 <Actions />
 
                 {
-                    game.winnerIds && game.winnerIds.length > 0
+                    (game.winnerIds && game.winnerIds.length > 0)
                         ? <Results
                             players={game.players}
                             winnerIds={game.winnerIds}
-                            communityCards={game.communityCards} />
+                            communityCards={game.communityCards}
+                            allPlayersDropped={game.allPlayersDropped} />
                         : null
                 }
             </div>
@@ -123,7 +124,7 @@ class Game extends Component {
         });
         socketClient.io.socket.on('gameFinished', data => {
             console.log('gameFinished', data);
-            this.props.finishGame(data);
+            this.props.finishRound(data);
         });
         socketClient.io.socket.on('actionType', data => {
             this.setState({ lastAction: data });
@@ -147,7 +148,6 @@ const mapDispatchToProps = (dispatch) => {
         init: (data) => dispatch(init(data)),
         newStep: (data) => dispatch(newStep(data)),
         finishRound: (data) => dispatch(finishRound(data)),
-        finishGame: (data) => dispatch(finishGame(data)),
         pushAlert: (data) => dispatch(pushAlert(data)),
     }
 };

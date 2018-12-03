@@ -23,9 +23,9 @@ export const Results = (props) => {
                                     <td>{player.user.username}</td>
                                     <td>
                                         {
-                                            props.communityCards.length === 5
-                                                ? player.combination
-                                                : 'Est le dernier joueur restant'
+                                            props.allPlayersDropped
+                                                ? 'Est le dernier joueur restant'
+                                                : player.combination
                                         }
                                     </td>
                                     <td>{player.earnedMoney}€</td>
