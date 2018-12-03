@@ -28,7 +28,7 @@ let initialState = {
         "NEW_TURN"
     ],
     gameStatus: "IN_PROGRESS",
-    id: 3,
+    id: null,
     players: [
         {
             chips: 2000,

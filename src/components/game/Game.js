@@ -5,6 +5,9 @@ import {finishRound, init, newStep, updateAfterAction, finishGame} from "../../a
 import connect from "react-redux/es/connect/connect";
 import socketClient from "../../clients/socketClient";
 import {Results} from "./Results";
+import history from "../../helpers/history";
+import {alert} from "../../helpers/global";
+import {pushAlert} from "../../actions/alertAction";
 
 class Game extends Component {
 
@@ -14,7 +17,16 @@ class Game extends Component {
         this.state = {
             lastAction: null,
         };
+
+        this.redirectIfNoGame()
     }
+
+    redirectIfNoGame = () => {
+        if (this.props.gameReducer.id === null) {
+            this.props.pushAlert(alert('error', 'Veuillez accéder au jeu en cliquant sur "Rejoindre une partie"'));
+            history.push('/');
+        }
+    };
 
     action = () => {
         this.props.action({
@@ -133,6 +145,7 @@ const mapDispatchToProps = (dispatch) => {
         newStep: (data) => dispatch(newStep(data)),
         finishRound: (data) => dispatch(finishRound(data)),
         finishGame: (data) => dispatch(finishGame(data)),
+        pushAlert: (data) => dispatch(pushAlert(data)),
     }
 };
 
