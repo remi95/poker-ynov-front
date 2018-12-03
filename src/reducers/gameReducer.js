@@ -2,7 +2,6 @@ import {
     GAME_ACTION,
     GAME_GET_HAND,
     GAME_INIT,
-    GAME_LAST_ACTION,
     GAME_RESULTS,
     GAME_ROUND,
     GAME_STEP
@@ -80,11 +79,6 @@ const gameReducer = (state = initialState, action) => {
                 playingPlayerId: action.data.playingPlayerId,
                 playingPlayerCallValue: action.data.playingPlayerCallValue,
                 players: action.data.players,
-            };
-        case GAME_LAST_ACTION:
-            return {
-                ...state,
-                lastAction: action.data,
             };
         case GAME_STEP:
             return {

@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import Actions from "./Actions";
 import {Table} from "./Table";
-import {finishRound, init, newStep, updateAfterAction, lastAction, finishGame} from "../../actions/gameAction";
+import {finishRound, init, newStep, updateAfterAction, finishGame} from "../../actions/gameAction";
 import connect from "react-redux/es/connect/connect";
 import socketClient from "../../clients/socketClient";
 import {Results} from "./Results";
 
 class Game extends Component {
+
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            lastAction: null,
+        };
+    }
 
     action = () => {
         this.props.action({
@@ -63,8 +71,8 @@ class Game extends Component {
                     cards={game.communityCards} />
 
                 {
-                    game.lastAction !== null
-                        ? <div id="action-indicator">{game.lastAction}</div>
+                    this.state.lastAction !== null
+                        ? <div id="action-indicator">{this.state.lastAction}</div>
                         : null
                 }
 
@@ -87,13 +95,6 @@ class Game extends Component {
             console.log('action', data);
             this.props.action(data)
         });
-        socketClient.io.socket.on('actionType', data => {
-            console.log('actionType', data);
-            this.props.lastAction(data);
-            setTimeout(() => {
-                this.props.lastAction(null);
-            }, 1000)
-        });
         socketClient.io.socket.on('newTurn', data => {
             console.log('newTurn', data);
             this.props.newStep(data)
@@ -109,6 +110,12 @@ class Game extends Component {
             console.log('gameFinished', data);
             this.props.finishGame(data);
         });
+        socketClient.io.socket.on('actionType', data => {
+            this.setState({ lastAction: data });
+            setTimeout(() => {
+                this.setState({ lastAction: null })
+            }, 1000)
+        });
     }
 }
 
@@ -122,7 +129,6 @@ const mapStateToProps = ({ gameReducer, userReducer }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         action: (data) => dispatch(updateAfterAction(data)),
-        lastAction: (data) => dispatch(lastAction(data)),
         init: (data) => dispatch(init(data)),
         newStep: (data) => dispatch(newStep(data)),
         finishRound: (data) => dispatch(finishRound(data)),

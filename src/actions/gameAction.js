@@ -2,7 +2,6 @@ import {
     GAME_ACTION,
     GAME_GET_HAND,
     GAME_INIT,
-    GAME_LAST_ACTION,
     GAME_RESULTS,
     GAME_ROUND,
     GAME_STEP
@@ -17,13 +16,6 @@ const action = (data) => {
     return {
         type: GAME_ACTION,
         data
-    }
-};
-
-export const lastAction = (data) => {
-    return {
-        type: GAME_LAST_ACTION,
-        data,
     }
 };
 

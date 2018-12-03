@@ -11,7 +11,6 @@ export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const GAME_INIT = 'GAME_INIT';
 export const GAME_GET_HAND = 'GAME_GET_HAND';
 export const GAME_ACTION = 'GAME_ACTION';
-export const GAME_LAST_ACTION = 'GAME_LAST_ACTION';
 export const GAME_STEP = 'GAME_STEP';
 export const GAME_ROUND = 'GAME_ROUND';
 export const GAME_RESULTS = 'GAME_RESULTS';
