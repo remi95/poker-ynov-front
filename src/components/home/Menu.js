@@ -59,11 +59,14 @@ class Menu extends Component {
 
                     <img src={logo} alt="logo poker ynov"/>
                     <div className="join-game-button-container d-flex align-items-center justify-start flex-column">
-                        <button className="button btn-join-game" onClick={this.joinGame}>Rejoindre une partie</button>
+                        <button className="button btn-join-game"
+                                onClick={!this.state.loading ? () => this.joinGame() : null}>Rejoindre une partie</button>
 
-                        <button className="button button-outline btn-profile" onClick={ () => this.props.openModal() }>Mes statistiques</button>
+                        <button className="button button-outline btn-profile"
+                                onClick={ () => this.props.openModal() }>Mes statistiques</button>
 
-                        <button className="button button-outline btn-logout" onClick={ () => this.props.logout() }><img src={ logout } alt="logout"/></button>
+                        <button className="button button-outline btn-logout"
+                                onClick={ () => this.props.logout() }><img src={ logout } alt="logout"/></button>
 
                         <Modal open={ this.props.modalReducer.isOpen } onClose={ () => this.props.closeModal() } center>
                             <Stats />
