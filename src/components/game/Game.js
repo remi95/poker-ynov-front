@@ -15,7 +15,7 @@ class Game extends Component {
         super(props);
 
         this.state = {
-            lastAction: null,
+            lastAction: {},
         };
 
         this.redirectIfNoGame()
@@ -83,9 +83,12 @@ class Game extends Component {
                     cards={game.communityCards} />
 
                 {
-                    this.state.lastAction !== null
-                        ? <div id="action-indicator">{this.state.lastAction}</div>
-                        : null
+                    this.state.lastAction !== {}
+                        ?   <div id="action-indicator">
+                                {this.state.lastAction.actionType}
+                                {this.state.lastAction.value ? ` ${this.state.lastAction.value} €` : null}
+                            </div>
+                        :   null
                 }
 
                 <Actions />
@@ -125,7 +128,7 @@ class Game extends Component {
         socketClient.io.socket.on('actionType', data => {
             this.setState({ lastAction: data });
             setTimeout(() => {
-                this.setState({ lastAction: null })
+                this.setState({ lastAction: {} })
             }, 1000)
         });
     }

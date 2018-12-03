@@ -88,13 +88,13 @@ class Actions extends Component {
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={() => this.sendAction('FOLD')} >
+                         onClick={activePlayer ? () => this.sendAction('FOLD') : null } >
                         <img src={sleeping} alt=""/>Se coucher
                     </div>
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={() => this.sendAction('CALL')} >
+                         onClick={activePlayer ? () => this.sendAction('CALL') : null } >
                         <img src={check} alt=""/>
                         {
                             game.playingPlayerCallValue
@@ -105,7 +105,7 @@ class Actions extends Component {
                     <div className={'action'}
                          onMouseLeave={this.actionHoverEffect}
                          onMouseEnter={this.actionHoverEffect}
-                         onClick={() => this.sendAction('BET')} >
+                         onClick={activePlayer ? () => this.sendAction('BET') : null } >
                         <img src={bet} alt=""/> Miser {this.state.cursorBet}€
                     </div>
                 </div>
