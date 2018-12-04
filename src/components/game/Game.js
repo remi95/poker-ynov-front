@@ -116,22 +116,18 @@ class Game extends Component {
         this.playerIndicator();
 
         socketClient.io.socket.on('action', data => {
-            console.log('action', data);
             this.props.action(data)
         });
         socketClient.io.socket.on('newTurn', data => {
-            console.log('newTurn', data);
             this.props.newStep(data)
         });
         socketClient.io.socket.on('newRound', data => {
             this.props.finishRound(data);
-            console.log('newRound', data);
         });
         socketClient.io.socket.on('wrongPlayerPlay', data => {
             console.log('wrongPlayerPlay', data);
         });
         socketClient.io.socket.on('gameFinished', data => {
-            console.log('gameFinished', data);
             this.props.finishRound(data);
         });
         socketClient.io.socket.on('actionType', data => {

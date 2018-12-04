@@ -19,7 +19,6 @@ class Stats extends Component {
             this.setState({
                 playerStat
             });
-            console.log(this.state.playerStat)
         }
         catch (e) {
             console.error(e)
