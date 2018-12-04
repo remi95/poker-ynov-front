@@ -73,7 +73,7 @@ class Game extends Component {
 
     playerIndicator = () => {
         if (this.props.gameReducer.playingPlayerId === this.props.userReducer.user.id) {
-            this.props.pushAlert(alert('info', 'A votre tour !'), 3000)
+            this.props.pushAlert(alert('info', 'A votre tour !'), 1700)
         }
     };
 
