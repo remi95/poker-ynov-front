@@ -23,3 +23,15 @@ input::placeholder {
 label, legend {
   color: black;
 }
+
+#reset-password {
+  width: 75%;
+  margin: auto;
+
+  h1 {
+    text-align: center;
+    color: black;
+    text-transform: none;
+    margin: 10vh 0;
+  }
+}

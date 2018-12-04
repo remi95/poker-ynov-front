@@ -45,7 +45,8 @@ class ResetPassword extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submit}>
+            <form onSubmit={this.submit} id={'reset-password'}>
+                <h1>Changer votre mot de passe</h1>
                 <label htmlFor="password">Nouveau mot de passe</label>
                 <input type="password" name="password" onChange={this.inputChange}/>
 
